@@ -1,0 +1,112 @@
+.product-card {
+  background-color: var(--color-card);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+  transition: transform var(--transition-normal);
+  border: 1px solid var(--color-border);
+}
+
+.product-card:hover {
+  transform: translateY(-4px);
+}
+
+.product-card-image-wrapper {
+  aspect-ratio: 1;
+  overflow: hidden;
+  background-color: var(--color-muted);
+  position: relative;
+}
+
+.product-card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-normal);
+}
+
+.product-card:hover .product-card-image {
+  transform: scale(1.05);
+}
+
+.product-card-content {
+  padding: var(--spacing-md);
+}
+
+.product-card-category {
+  font-size: 0.75rem;
+  color: var(--color-muted-foreground);
+  margin-bottom: 0.25rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.product-card-title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.125rem;
+  margin-bottom: var(--spacing-sm);
+  transition: color var(--transition-fast);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 2.5rem;
+}
+
+.product-card:hover .product-card-title {
+  color: var(--color-primary);
+}
+
+.product-card-details {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-sm);
+}
+
+.product-card-price {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.product-card-stock {
+  font-size: 0.75rem;
+  color: var(--color-accent);
+  font-weight: 500;
+}
+
+.product-card-footer {
+  padding: 0 var(--spacing-md) var(--spacing-md);
+}
+
+.product-card-button {
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  padding: 0.625rem var(--spacing-md);
+  background-color: var(--color-primary);
+  color: var(--color-primary-foreground);
+  border: none;
+  border-radius: var(--radius-sm);
+  font-weight: 500;
+  font-size: 0.875rem;
+  transition: background-color var(--transition-fast);
+}
+
+.product-card-button:hover:not(:disabled) {
+  background-color: var(--color-primary-hover);
+}
+
+.product-card-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.product-card-button svg {
+  height: 1rem;
+  width: 1rem;
+}

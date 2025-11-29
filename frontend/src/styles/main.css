@@ -1,0 +1,209 @@
+/* Campify Main Styles - Design System */
+
+:root {
+  /* Colors - Campify Outdoor Theme */
+  --color-background: hsl(40, 30%, 97%);
+  --color-foreground: hsl(25, 40%, 15%);
+  --color-card: hsl(0, 0%, 100%);
+  --color-card-foreground: hsl(25, 40%, 15%);
+  
+  --color-primary: hsl(100, 60%, 25%);
+  --color-primary-foreground: hsl(0, 0%, 100%);
+  --color-primary-hover: hsl(100, 60%, 22%);
+  
+  --color-secondary: hsl(30, 40%, 40%);
+  --color-secondary-foreground: hsl(0, 0%, 100%);
+  --color-secondary-hover: hsl(30, 40%, 35%);
+  
+  --color-muted: hsl(100, 20%, 90%);
+  --color-muted-foreground: hsl(100, 20%, 35%);
+  
+  --color-accent: hsl(25, 85%, 55%);
+  --color-accent-foreground: hsl(0, 0%, 100%);
+  --color-accent-hover: hsl(25, 85%, 50%);
+  
+  --color-destructive: hsl(0, 84.2%, 60.2%);
+  --color-destructive-foreground: hsl(0, 0%, 100%);
+  
+  --color-border: hsl(100, 20%, 85%);
+  --color-input: hsl(100, 20%, 90%);
+  
+  /* Fonts */
+  --font-display: 'Poppins', sans-serif;
+  --font-body: 'Roboto', sans-serif;
+  
+  /* Spacing */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-2xl: 3rem;
+  --spacing-3xl: 4rem;
+  
+  /* Border Radius */
+  --radius: 0.75rem;
+  --radius-sm: 0.5rem;
+  --radius-lg: 1rem;
+  --radius-full: 9999px;
+  
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  --shadow-card: 0 4px 20px -4px hsla(100, 40%, 25%, 0.15);
+  
+  /* Transitions */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);
+  
+  /* Gradients */
+  --gradient-hero: linear-gradient(135deg, hsl(100, 60%, 25%) 0%, hsl(100, 50%, 35%) 100%);
+}
+
+/* Dark Mode */
+.dark {
+  --color-background: hsl(100, 25%, 8%);
+  --color-foreground: hsl(40, 30%, 95%);
+  --color-card: hsl(100, 20%, 12%);
+  --color-card-foreground: hsl(40, 30%, 95%);
+  
+  --color-primary: hsl(100, 55%, 45%);
+  --color-primary-foreground: hsl(100, 25%, 8%);
+  --color-primary-hover: hsl(100, 55%, 40%);
+  
+  --color-secondary: hsl(30, 35%, 25%);
+  --color-secondary-foreground: hsl(40, 30%, 95%);
+  
+  --color-muted: hsl(100, 15%, 18%);
+  --color-muted-foreground: hsl(100, 10%, 60%);
+  
+  --color-accent: hsl(25, 80%, 50%);
+  --color-accent-foreground: hsl(100, 25%, 8%);
+  
+  --color-border: hsl(100, 15%, 22%);
+  --color-input: hsl(100, 15%, 18%);
+}
+
+/* Reset & Base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+/* Container */
+.container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-md);
+}
+
+/* Utility Classes */
+.hover-lift {
+  transition: transform var(--transition-normal);
+}
+
+.hover-lift:hover {
+  transform: translateY(-4px);
+}
+
+.card-shadow {
+  box-shadow: var(--shadow-card);
+}
+
+.min-h-screen {
+  min-height: 100vh;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.flex-1 {
+  flex: 1;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.gap-2 {
+  gap: var(--spacing-sm);
+}
+
+.gap-4 {
+  gap: var(--spacing-md);
+}
+
+.gap-8 {
+  gap: var(--spacing-xl);
+}
+
+.text-center {
+  text-align: center;
+}
+
+/* Grid */
+.grid {
+  display: grid;
+}
+
+/* Animations */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.6s ease-out forwards;
+}

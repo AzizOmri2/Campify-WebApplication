@@ -1,0 +1,125 @@
+/* Import fonts if needed */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+/* Root Variables */
+:root {
+  /* Campify Outdoor Theme - Earthy, Natural Tones */
+  --background: hsl(40, 30%, 97%);
+  --foreground: hsl(25, 40%, 15%);
+
+  --card: hsl(0, 0%, 100%);
+  --card-foreground: hsl(25, 40%, 15%);
+
+  --popover: hsl(0, 0%, 100%);
+  --popover-foreground: hsl(25, 40%, 15%);
+
+  /* Forest Green - Primary Brand Color */
+  --primary: hsl(100, 60%, 25%);
+  --primary-foreground: hsl(0, 0%, 100%);
+
+  /* Warm Earth Brown - Secondary */
+  --secondary: hsl(30, 40%, 40%);
+  --secondary-foreground: hsl(0, 0%, 100%);
+
+  /* Light Sage - Muted Backgrounds */
+  --muted: hsl(100, 20%, 90%);
+  --muted-foreground: hsl(100, 20%, 35%);
+
+  /* Sunset Orange - Accent/CTA */
+  --accent: hsl(25, 85%, 55%);
+  --accent-foreground: hsl(0, 0%, 100%);
+
+  --accent-hover: hsl(25, 99%, 51%);
+
+  --destructive: hsl(0, 84.2%, 60.2%);
+  --destructive-foreground: hsl(0, 0%, 100%);
+
+  --border: hsl(100, 20%, 85%);
+  --input: hsl(100, 20%, 90%);
+  --ring: hsl(100, 60%, 25%);
+
+  --radius: 0.75rem;
+
+  --hero-gradient: linear-gradient(135deg, hsl(100, 60%, 25%), hsl(100, 50%, 35%));
+  --card-shadow: 0 4px 20px -4px hsla(100, 40%, 25%, 0.15);
+  --hover-lift: translateY(-4px);
+  --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Dark mode */
+.dark {
+  --background: hsl(100, 25%, 8%);
+  --foreground: hsl(40, 30%, 95%);
+  
+  --card: hsl(100, 20%, 12%);
+  --card-foreground: hsl(40, 30%, 95%);
+  
+  --popover: hsl(100, 20%, 12%);
+  --popover-foreground: hsl(40, 30%, 95%);
+  
+  --primary: hsl(100, 55%, 45%);
+  --primary-foreground: hsl(100, 25%, 8%);
+  
+  --secondary: hsl(30, 35%, 25%);
+  --secondary-foreground: hsl(40, 30%, 95%);
+  
+  --muted: hsl(100, 15%, 18%);
+  --muted-foreground: hsl(100, 10%, 60%);
+  
+  --accent: hsl(25, 80%, 50%);
+  --accent-foreground: hsl(100, 25%, 8%);
+  
+  --destructive: hsl(0, 62.8%, 50%);
+  --destructive-foreground: hsl(40, 30%, 95%);
+  
+  --border: hsl(100, 15%, 22%);
+  --input: hsl(100, 15%, 18%);
+  --ring: hsl(100, 55%, 45%);
+}
+
+/* Global Styles */
+* {
+  box-sizing: border-box;
+  border-color: var(--border);
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: 'Roboto', sans-serif; /* body font */
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Poppins', sans-serif; /* display font */
+}
+
+/* Utilities */
+.hero-gradient {
+  background: var(--hero-gradient);
+}
+
+.card-shadow {
+  box-shadow: var(--card-shadow);
+}
+
+.hover-lift {
+  transition: var(--transition-smooth);
+}
+
+.hover-lift:hover {
+  transform: var(--hover-lift);
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+}

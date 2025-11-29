@@ -1,0 +1,45 @@
+frontend/node_modules/
+frontend/build/
+frontend/dist/
+frontend/dist-ssr
+frontend/.cache/
+frontend/.parcel-cache/
+frontend/.turbo/
+
+# React environment files
+frontend/.env
+frontend/.env.* 
+frontend/*.local
+
+# Package logs
+frontend/logs
+frontend/*.log
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+frontend/pnpm-debug.log*
+frontend/lerna-debug.log*
+
+
+
+
+backend/venv/
+backend/env/
+backend/.venv/
+
+# Python & Django cache
+backend/**/__pycache__/
+backend/*.pyc
+backend/**/*.pyc
+backend/.pytest_cache/
+backend/.mypy_cache/
+
+# Django static & media
+backend/staticfiles/
+backend/media/
+
+# Local DB + sensitive configs
+backend/db.sqlite3
+backend/*.env
+backend/**.env
+backend/.env.*

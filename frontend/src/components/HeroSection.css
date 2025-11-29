@@ -1,0 +1,123 @@
+.hero-section {
+  position: relative;
+  background: var(--gradient-hero);
+  color: var(--color-primary-foreground);
+  padding: 5rem var(--spacing-md);
+  overflow: hidden;
+}
+
+@media (min-width: 768px) {
+  .hero-section {
+    padding: 8rem var(--spacing-md);
+  }
+}
+
+.hero-pattern {
+  position: absolute;
+  inset: 0;
+  opacity: 0.1;
+  background-image: radial-gradient(circle at 2px 2px, currentColor 1px, transparent 0);
+  background-size: 40px 40px;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 10;
+  max-width: 48rem;
+}
+
+.hero-title {
+  font-size: 2.5rem;
+  font-family: var(--font-display);
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  animation: fade-in 0.6s ease-out forwards;
+}
+
+@media (min-width: 768px) {
+  .hero-title {
+    font-size: 3.75rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero-title {
+    font-size: 4.5rem;
+  }
+}
+
+.hero-description {
+  font-size: 1.125rem;
+  margin-bottom: 2rem;
+  opacity: 0.9;
+  animation: fade-in 0.6s ease-out 0.1s forwards;
+  animation-fill-mode: backwards;
+}
+
+@media (min-width: 768px) {
+  .hero-description {
+    font-size: 1.25rem;
+  }
+}
+
+.hero-actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  animation: fade-in 0.6s ease-out 0.2s forwards;
+  animation-fill-mode: backwards;
+}
+
+@media (min-width: 640px) {
+  .hero-actions {
+    flex-direction: row;
+  }
+}
+
+.hero-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  padding: 0.75rem 2rem;
+  font-size: 1.125rem;
+  border-radius: var(--radius-sm);
+  font-weight: 500;
+  transition: all var(--transition-fast);
+}
+
+.hero-button-primary {
+  background-color: var(--accent);
+  color: var(--color-secondary-foreground);
+  border: none;
+}
+
+.hero-button-primary:hover {
+  background-color: var(--accent-hover);
+}
+
+.hero-button-secondary {
+  background-color: transparent;
+  color: var(--color-primary-foreground);
+  border: 1px solid var(--color-primary-foreground);
+}
+
+.hero-button-secondary:hover {
+  background-color: var(--color-primary-foreground);
+  color: var(--color-primary);
+}
+
+.hero-button svg {
+  height: 1.25rem;
+  width: 1.25rem;
+}
+
+.hero-decoration {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 50%;
+  height: 50%;
+  opacity: 0.2;
+  background: linear-gradient(to top left, var(--color-primary-foreground), transparent);
+}

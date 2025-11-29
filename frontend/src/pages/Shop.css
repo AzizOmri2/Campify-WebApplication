@@ -1,0 +1,32 @@
+.shop-page {
+  min-height: 100vh;
+  padding: 3rem 0;
+}
+
+.shop-header {
+  margin-bottom: var(--spacing-xl);
+}
+
+.shop-title {
+  font-size: 2.5rem;
+  font-family: var(--font-display);
+  font-weight: 700;
+  margin-bottom: var(--spacing-md);
+}
+
+@media (min-width: 768px) {
+  .shop-title {
+    font-size: 3rem;
+  }
+}
+
+.shop-description {
+  font-size: 1.125rem;
+  color: var(--color-muted-foreground);
+}
+
+.shop-count {
+  margin-bottom: var(--spacing-md);
+  font-size: 0.875rem;
+  color: var(--color-muted-foreground);
+}

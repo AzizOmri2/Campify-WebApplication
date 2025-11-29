@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1,
+    "name": "Alpine Pro Tent 4-Person",
+    "price": 299.99,
+    "category": "Tents",
+    "image": "/placeholder.svg",
+    "stock": 15,
+    "description": "Spacious 4-person tent with excellent weather protection and easy setup. Perfect for family camping trips.",
+    "features": ["Waterproof 3000mm", "Easy Setup", "Vestibule Storage", "UV Protection"]
+  },
+  {
+    "id": 2,
+    "name": "TrailBlazer Backpack 65L",
+    "price": 189.99,
+    "category": "Backpacks",
+    "image": "/placeholder.svg",
+    "stock": 23,
+    "description": "Durable 65L backpack with ergonomic design and multiple compartments for extended hiking trips.",
+    "features": ["65L Capacity", "Adjustable Straps", "Rain Cover", "Hydration Compatible"]
+  },
+  {
+    "id": 3,
+    "name": "Summit Sleeping Bag -10°C",
+    "price": 149.99,
+    "category": "Sleeping Gear",
+    "image": "/placeholder.svg",
+    "stock": 30,
+    "description": "Premium down sleeping bag rated for -10°C. Lightweight and compressible for backpacking.",
+    "features": ["Down Insulation", "Compression Sack", "Draft Collar", "Lightweight"]
+  },
+  {
+    "id": 4,
+    "name": "Portable Camp Stove Deluxe",
+    "price": 79.99,
+    "category": "Cooking",
+    "image": "/placeholder.svg",
+    "stock": 42,
+    "description": "Compact and efficient camp stove with dual burners. Perfect for cooking meals outdoors.",
+    "features": ["Dual Burners", "Wind Resistant", "Piezo Ignition", "Portable"]
+  },
+  {
+    "id": 5,
+    "name": "LED Camping Lantern",
+    "price": 34.99,
+    "category": "Lighting",
+    "image": "/placeholder.svg",
+    "stock": 67,
+    "description": "Ultra-bright LED lantern with 360° illumination and long battery life.",
+    "features": ["1000 Lumens", "Rechargeable", "Water Resistant", "Adjustable Brightness"]
+  },
+  {
+    "id": 6,
+    "name": "Trekking Poles Set",
+    "price": 59.99,
+    "category": "Hiking",
+    "image": "/placeholder.svg",
+    "stock": 38,
+    "description": "Adjustable aluminum trekking poles with comfortable grips and shock absorption.",
+    "features": ["Adjustable Height", "Cork Grips", "Shock Absorption", "Lightweight"]
+  },
+  {
+    "id": 7,
+    "name": "Insulated Water Bottle 32oz",
+    "price": 39.99,
+    "category": "Hydration",
+    "image": "/placeholder.svg",
+    "stock": 89,
+    "description": "Vacuum-insulated stainless steel bottle keeps drinks cold for 24 hours or hot for 12 hours.",
+    "features": ["32oz Capacity", "Leak Proof", "BPA Free", "Dishwasher Safe"]
+  },
+  {
+    "id": 8,
+    "name": "Camping Hammock Double",
+    "price": 69.99,
+    "category": "Camping Furniture",
+    "image": "/placeholder.svg",
+    "stock": 28,
+    "description": "Lightweight portable hammock for two. Sets up in seconds and packs down small.",
+    "features": ["500lb Capacity", "Quick Setup", "Breathable Fabric", "Includes Straps"]
+  },
+  {
+    "id": 9,
+    "name": "Multi-Tool Camping Kit",
+    "price": 44.99,
+    "category": "Tools",
+    "image": "/placeholder.svg",
+    "stock": 55,
+    "description": "Essential 15-in-1 multi-tool with knife, pliers, screwdrivers, and more.",
+    "features": ["15 Tools", "Stainless Steel", "Belt Pouch", "Lifetime Warranty"]
+  },
+  {
+    "id": 10,
+    "name": "First Aid Kit Complete",
+    "price": 49.99,
+    "category": "Safety",
+    "image": "/placeholder.svg",
+    "stock": 44,
+    "description": "Comprehensive 200-piece first aid kit for outdoor adventures and emergencies.",
+    "features": ["200 Pieces", "Waterproof Case", "Organized Compartments", "Emergency Guide"]
+  },
+  {
+    "id": 11,
+    "name": "Folding Camp Chair",
+    "price": 54.99,
+    "category": "Camping Furniture",
+    "image": "/placeholder.svg",
+    "stock": 36,
+    "description": "Comfortable folding chair with cup holder and storage pocket. Lightweight and portable.",
+    "features": ["300lb Capacity", "Cup Holder", "Carry Bag", "Padded Seat"]
+  },
+  {
+    "id": 12,
+    "name": "Waterproof Dry Bag 20L",
+    "price": 29.99,
+    "category": "Storage",
+    "image": "/placeholder.svg",
+    "stock": 72,
+    "description": "Keep your gear dry with this durable waterproof dry bag. Perfect for kayaking and rafting.",
+    "features": ["20L Capacity", "Roll-Top Closure", "Shoulder Strap", "Floating Design"]
+  }
+]
