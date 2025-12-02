@@ -1,16 +1,81 @@
 import { useParams, Link } from 'react-router-dom';
 import { useCart } from '@/contexts/CartContext';
-import productsData from '@/data/products.json';
 import { ShoppingCart, ArrowLeft, Check } from 'lucide-react';
 import './ProductDetails.css';
+import { useEffect, useState } from 'react';
+import { useApi } from '@/contexts/ApiContext';
+
+
+interface ProductType {
+  _id: string;
+  name: string;
+  price: number;
+  category: string;
+  image: string;
+  stock: number;
+  description?: string;
+  features?: string[];
+}
 
 const ProductDetails = () => {
   const { id } = useParams();
   const { addToCart } = useCart();
-  
-  const product = productsData.find((p) => p.id === Number(id));
 
-  if (!product) {
+  const { apiUrl } = useApi(); 
+  const [product, setProduct] = useState<ProductType | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+  
+  useEffect(() => {
+    console.log("Fetching product with id:", id); // <- log id
+  if (id) {
+    fetch(`${apiUrl}/api/products/${id}`)
+      .then(res => res.json())
+      .then(data => console.log("Fetched data:", data))
+      .catch(err => console.error(err));
+  }
+
+  
+    const fetchProduct = async () => {
+      try {
+        const response = await fetch(`${apiUrl}/api/products/${id}`);
+        if (!response.ok) {
+          throw new Error(`Product not found`);
+        }
+        const data: ProductType = await response.json();
+        setProduct(data);
+      } catch (err: any) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (id) {
+      fetchProduct();
+    }
+  }, [id, apiUrl]);
+
+  if (loading) {
+    return (
+      <div className="product-details-page">
+        <div className="container">
+          <div className="back-button skeleton skeleton-text"></div>
+          <div className="product-details-grid">
+            <div className="product-image-container skeleton skeleton-image"></div>
+            <div className="product-info">
+              <div className="skeleton skeleton-text" style={{ width: '40%' }}></div>
+              <div className="skeleton skeleton-text" style={{ width: '60%' }}></div>
+              <div className="skeleton skeleton-text" style={{ width: '80%' }}></div>
+              <div className="skeleton skeleton-button"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+  
+  if (error || !product) {
     return (
       <div className="product-not-found">
         <div className="product-not-found-content">
@@ -27,30 +92,22 @@ const ProductDetails = () => {
     <div className="product-details-page">
       <div className="container">
         <Link to="/shop" className="back-button">
-          <ArrowLeft />
-          Back to Shop
+          <ArrowLeft /> Back to Shop
         </Link>
 
         <div className="product-details-grid">
           {/* Product Image */}
           <div className="product-image-container">
-            <img
-              src={product.image}
-              alt={product.name}
-            />
+            <img src={product.image} alt={product.name} />
           </div>
 
           {/* Product Info */}
           <div>
             <span className="product-badge">{product.category}</span>
-            <h1 className="product-title">
-              {product.name}
-            </h1>
-            
+            <h1 className="product-title">{product.name}</h1>
+
             <div className="product-price-wrapper">
-              <span className="product-price">
-                ${product.price.toFixed(2)}
-              </span>
+              <span className="product-price">{product.price.toFixed(2)} TND</span>
               {product.stock < 10 && (
                 <span className="product-stock-warning">
                   Only {product.stock} left in stock
@@ -58,9 +115,7 @@ const ProductDetails = () => {
               )}
             </div>
 
-            <p className="product-description">
-              {product.description}
-            </p>
+            <p className="product-description">{product.description}</p>
 
             {/* Features */}
             {product.features && (
@@ -91,12 +146,13 @@ const ProductDetails = () => {
               </Link>
             </div>
 
-            {/* Stock Status */}
             <div className="product-availability">
               <p>
                 <strong>Availability:</strong>{' '}
                 {product.stock > 0 ? (
-                  <span className="product-in-stock">In Stock ({product.stock} available)</span>
+                  <span className="product-in-stock">
+                    In Stock ({product.stock} available)
+                  </span>
                 ) : (
                   <span className="product-out-stock">Out of Stock</span>
                 )}

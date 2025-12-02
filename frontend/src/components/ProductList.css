@@ -21,3 +21,40 @@
     grid-template-columns: repeat(4, 1fr);
   }
 }
+
+
+
+/* Product card fade with scale & stagger */
+.product-fade-appear,
+.product-fade-enter {
+  opacity: 0;
+  transform: translateY(15px) scale(0.95);
+}
+
+.product-fade-appear-active,
+.product-fade-enter-active {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  transition: 
+    opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Improved fade-out */
+.product-fade-exit {
+  opacity: 1;
+  transform: translateY(0) scale(1) rotate(0deg);
+}
+
+.product-fade-exit-active {
+  opacity: 0;
+  transform: translateY(-20px) scale(0.9) rotate(-3deg);
+  transition: 
+    opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Optional: stagger cards */
+.product-list > * {
+  transition-delay: calc(var(--index) * 0.05s);
+}

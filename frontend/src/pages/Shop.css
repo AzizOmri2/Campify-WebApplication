@@ -30,3 +30,98 @@
   font-size: 0.875rem;
   color: var(--color-muted-foreground);
 }
+
+/* Skeleton loader container */
+.loading-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+
+/* Skeleton card placeholder */
+.skeleton-card {
+  width: 220px;
+  height: 350px;
+  border-radius: 8px;
+  background: linear-gradient(90deg, #ececec 25%, #f5f5f5 50%, #ececec 75%);
+  background-size: 200% 100%;
+  animation: shine 1.5s infinite linear;
+}
+
+/* Skeleton shimmer animation */
+@keyframes shine {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+
+/* Error Design */
+.shop-error {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 60vh;
+  text-align: center;
+  padding: 2rem;
+}
+
+.shop-error-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  background-color: #fff4f4;
+  padding: 2rem 3rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+}
+
+.shop-error-content:hover {
+  transform: translateY(-5px);
+}
+
+.shop-error-icon {
+  color: #ff4d4f;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.shop-error-content:hover .shop-error-icon {
+  transform: rotate(15deg) scale(1.2);
+  color: #ff7875;
+}
+
+.shop-error h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #ff4d4f;
+}
+
+.shop-error p {
+  color: #a8071a;
+  font-size: 1rem;
+}
+
+.shop-error-button {
+  background-color: #ff4d4f;
+  color: #fff;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.shop-error-button:hover {
+  background-color: #ff7875;
+  transform: scale(1.05);
+}
+
+
+

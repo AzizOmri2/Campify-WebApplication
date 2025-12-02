@@ -172,6 +172,31 @@
   width: 1.25rem;
 }
 
+/* LOGOUT BUTTON */
+.navbar-logout-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 2.5rem;
+  width: 2.5rem;
+  border: 1px solid var(--color-border);
+  background-color: var(--color-card);
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
+}
+
+.navbar-logout-button:hover {
+  background-color: var(--color-primary);
+  color: var(--color-primary-foreground);
+  border-color: var(--color-primary);
+}
+
+.navbar-logout-button svg {
+  height: 1.25rem;
+  width: 1.25rem;
+}
+
 .navbar-menu-button {
   display: inline-flex;
   align-items: center;
@@ -221,4 +246,104 @@
 
 .navbar-mobile-link:hover {
   color: var(--color-primary);
+}
+
+
+
+/* Navbar User Dropdown */
+.navbar-user-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown toggle button (username) */
+.dropdown-toggle {
+  position: relative;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  color: var(--color-primary);
+  font-size: 1rem;
+  padding: 0.25rem 0.5rem;
+  transition: color 0.3s ease;
+  overflow: hidden;
+}
+
+/* Sliding underline effect */
+.dropdown-toggle::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--color-primary); /* underline color */
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.3s ease;
+}
+
+/* Hover effect */
+.dropdown-toggle:hover {
+  color: var(--color-primary);
+}
+
+.dropdown-toggle:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* Optional: subtle background glow */
+.dropdown-toggle:hover {
+  color: var(--color-primary);
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 5px;
+  padding: 0.25rem 0.5rem;
+  transition: all 0.3s ease;
+}
+
+/* Dropdown menu container */
+.dropdown-menu {
+  position: absolute;
+  left: 10%;
+  top: 140%;
+  background-color: white; /* white background */
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.15); /* subtle shadow */
+  padding: 0.25rem 0;
+  min-width: 150px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  animation: fadeIn 0.2s ease-out;
+}
+
+/* Dropdown items (buttons) */
+.dropdown-item {
+  background: none;
+  border: none;
+  color: var(--color-primary); /* primary color for buttons */
+  text-align: left;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 500;
+  border-radius: 5px;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.dropdown-item:hover {
+  background-color: var(--color-primary);
+  color: white; /* invert text color on hover */
+}
+
+/* Optional fadeIn animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
 }

@@ -50,7 +50,7 @@ const Footer = () => {
           {/* Connect */}
           <div>
             <h3 className="footer-section-title">Connect With Us</h3>
-            <div className="footer-social">+
+            <div className="footer-social">
               <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="footer-social-link">
                 <Facebook />
               </a>

@@ -14,36 +14,88 @@ import './styles/main.css';
 import { useState } from "react";
 import LoginModal from "./components/LoginModal";
 import { NotificationProvider } from "./contexts/NotificationContext";
+import { ApiProvider } from "./contexts/ApiContext";
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import { useLocation } from 'react-router-dom';
+import { UserProvider } from "./contexts/UserContext";
+import Orders from "./pages/Orders";
+import ProtectedRoute from "./lib/ProtectedRoute";
+
 
 const queryClient = new QueryClient();
 
+
+const AppRoutes = () => {
+  const location = useLocation(); // Now safe because inside <BrowserRouter>
+
+  return (
+    <TransitionGroup>
+      <CSSTransition
+        key={location.pathname}
+        classNames="page-fade"
+        timeout={800}
+      >
+        <Routes location={location}>
+          <Route path="/" element={<Home />} />
+          <Route path="/shop" element={<Shop />} />
+          <Route path="/product/:id" element={<ProductDetails />} />
+
+          <Route path="/cart" element={
+            <ProtectedRoute>
+              <Cart />
+            </ProtectedRoute>
+          } />
+
+          <Route path="/checkout" element={
+            <ProtectedRoute>
+              <Checkout />
+            </ProtectedRoute>
+          } />
+
+          <Route path="/orders" element={
+            <ProtectedRoute>
+              <Orders />
+            </ProtectedRoute>
+          } />
+          
+          <Route path="/contact" element={<Contact />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </CSSTransition>
+    </TransitionGroup>
+  );
+};
+
 const App = () => {
-  const [loginOpen, setLoginOpen] = useState(false);
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+
+  const handleLoginOpen = () => setIsLoginModalOpen(true);
+  const handleLoginClose = () => setIsLoginModalOpen(false);
+
 
   return (
     <QueryClientProvider client={queryClient}>
-      <NotificationProvider>
-        <CartProvider>
-          <BrowserRouter>
-            <div className="app-container">
-              <Navbar onLoginOpen={() => setLoginOpen(true)} />
-              <main className="main-content">
-                <Routes>
-                  <Route path="/" element={<Home />} />
-                  <Route path="/shop" element={<Shop />} />
-                  <Route path="/product/:id" element={<ProductDetails />} />
-                  <Route path="/cart" element={<Cart />} />
-                  <Route path="/checkout" element={<Checkout />} />
-                  <Route path="/contact" element={<Contact />} />
-                  <Route path="*" element={<NotFound />} />
-                </Routes>
-              </main>
-              <Footer />
-              {loginOpen && <LoginModal onClose={() => setLoginOpen(false)} />}
-            </div>
-          </BrowserRouter>
-        </CartProvider>
-      </NotificationProvider>
+      <ApiProvider>
+        <NotificationProvider>
+          <UserProvider>
+            <CartProvider>
+              <BrowserRouter>
+                <div className="app-container">
+                  <Navbar onLoginOpen={handleLoginOpen}/>
+
+                  {isLoginModalOpen && (
+                    <LoginModal onClose={handleLoginClose}/>
+                  )}
+                  <main className="main-content">
+                    <AppRoutes />
+                  </main>
+                  <Footer />
+                </div>
+              </BrowserRouter>
+            </CartProvider>
+          </UserProvider>
+        </NotificationProvider>
+      </ApiProvider>
     </QueryClientProvider>
   );
 };

@@ -2,11 +2,25 @@ import { Link } from 'react-router-dom';
 import { useCart } from '@/contexts/CartContext';
 import { Minus, Plus, Trash2, ShoppingBag } from 'lucide-react';
 import './Cart.css';
+import { useEffect } from 'react';
+import { useUser } from '@/contexts/UserContext';
 
 const Cart = () => {
-  const { cart, removeFromCart, updateQuantity, cartTotal, clearCart } = useCart();
+  const { cart, removeFromCart, updateQuantity, cartTotal, clearCart, fetchCart, loading } = useCart();
+  const { user } = useUser();
 
-  if (cart.length === 0) {
+  // Fetch user's cart from backend when component mounts
+  useEffect(() => {
+    if (user) {
+      fetchCart();
+    }
+  }, [user]);
+
+  if (loading) {
+    return <p>Loading your cart...</p>;
+  }
+  
+  if (!loading && cart.length === 0) {
     return (
       <div className="cart-empty">
         <div className="cart-empty-content">
@@ -38,48 +52,36 @@ const Cart = () => {
           {/* Cart Items */}
           <div className="cart-items">
             {cart.map((item) => (
-              <div key={item.id} className="cart-item">
+              <div key={item._id} className="cart-item">
                 <div className="cart-item-content">
                   <div className="cart-item-image">
-                    <img
-                      src={item.image}
-                      alt={item.name}
-                    />
+                    <img src={item.image} alt={item.name}/>
                   </div>
                   
                   <div className="cart-item-details">
-                    <Link to={`/product/${item.id}`}>
+                    <Link to={`/product/${item._id}`}>
                       <h3 className="cart-item-name">
                         {item.name}
                       </h3>
                     </Link>
                     <p className="cart-item-price">
-                      ${item.price.toFixed(2)}
+                      {item.price.toFixed(2)} TND
                     </p>
                     
                     <div className="cart-item-actions">
                       {/* Quantity Controls */}
                       <div className="cart-quantity-controls">
-                        <button
-                          className="cart-quantity-button"
-                          onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                        >
+                        <button className="cart-quantity-button" onClick={() => updateQuantity(item._id, item.quantity - 1)}>
                           <Minus />
                         </button>
                         <span className="cart-quantity">{item.quantity}</span>
-                        <button
-                          className="cart-quantity-button"
-                          onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                        >
+                        <button className="cart-quantity-button" onClick={() => updateQuantity(item._id, item.quantity + 1)}>
                           <Plus />
                         </button>
                       </div>
 
                       {/* Remove Button */}
-                      <button
-                        className="cart-remove-button"
-                        onClick={() => removeFromCart(item.id)}
-                      >
+                      <button className="cart-remove-button" onClick={() => removeFromCart(item._id)}>
                         <Trash2 />
                       </button>
                     </div>
@@ -97,26 +99,26 @@ const Cart = () => {
               <div className="cart-summary-details">
                 <div className="cart-summary-row">
                   <span className="cart-summary-label">Subtotal</span>
-                  <span className="cart-summary-value">${cartTotal.toFixed(2)}</span>
+                  <span className="cart-summary-value">{cartTotal.toFixed(2)} TND</span>
                 </div>
                 <div className="cart-summary-row">
                   <span className="cart-summary-label">Shipping</span>
                   <span className="cart-summary-value">
-                    {shipping === 0 ? 'FREE' : `$${shipping.toFixed(2)}`}
+                    {shipping === 0 ? 'FREE' : `${shipping.toFixed(2)} TND`}
                   </span>
                 </div>
                 <div className="cart-summary-divider" />
                 <div className="cart-summary-total">
                   <span>Total</span>
                   <span className="cart-summary-total-value">
-                    ${total.toFixed(2)}
+                    {total.toFixed(2)} TND
                   </span>
                 </div>
               </div>
 
               {cartTotal < 100 && (
                 <p className="cart-summary-shipping-note">
-                  Add ${(100 - cartTotal).toFixed(2)} more for free shipping!
+                  Add {(100 - cartTotal).toFixed(2)} TND more for free shipping!
                 </p>
               )}
 

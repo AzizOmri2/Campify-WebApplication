@@ -123,3 +123,29 @@ h1, h2, h3, h4, h5, h6 {
 .main-content {
   flex: 1;
 }
+
+
+/* Page fade-in/out */
+.page-fade-appear,
+.page-fade-enter {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.page-fade-appear-active,
+.page-fade-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
+}
+
+.page-fade-exit {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.page-fade-exit-active {
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
+}

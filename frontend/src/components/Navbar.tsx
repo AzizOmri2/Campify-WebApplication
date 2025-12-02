@@ -1,24 +1,43 @@
-import { Link, NavLink } from 'react-router-dom';
-import { LogIn, ShoppingCart, Menu, Tent } from 'lucide-react';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { LogIn, ShoppingCart, Menu, Tent, LogOut, Settings, Package } from 'lucide-react';
 import { useCart } from '@/contexts/CartContext';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import './Navbar.css';
-import LoginModal from './LoginModal';
+import { useUser } from '@/contexts/UserContext';
 
 
-interface NavbarProps {
-  onLoginOpen: () => void; // Add this
-}
-
-const Navbar = ({ onLoginOpen }: NavbarProps) => {
+const Navbar = ({ onLoginOpen }: { onLoginOpen: () => void }) => {
   const { cartCount } = useCart();
+  const { user, logout } = useUser();
+  
   const [ mobileMenuOpen, setMobileMenuOpen ] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  const navigate = useNavigate();
+  const dropdownRef = useRef<HTMLDivElement>(null);  
 
   const navLinks = [
     { name: 'Home', path: '/' },
     { name: 'Shop', path: '/shop' },
     { name: 'Contact', path: '/contact' },
   ];
+
+  const userName = user?.full_name || "User";
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setDropdownOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  useEffect(() => {
+    if (!user) setDropdownOpen(false);
+  }, [user]);
 
   return (
     <nav className="navbar">
@@ -48,10 +67,30 @@ const Navbar = ({ onLoginOpen }: NavbarProps) => {
             )}
           </NavLink>
 
-          {/* Login button calls the prop function */}
-          <button className="navbar-login-button" onClick={onLoginOpen} title="Login">
-            <LogIn />
-          </button>
+          {user ? (
+            <div className="navbar-user-dropdown" ref={dropdownRef}>
+              <button className="dropdown-toggle" onClick={() => setDropdownOpen(!dropdownOpen)}>
+                {userName} ▼
+              </button>
+              {dropdownOpen && (
+                <div className="dropdown-menu">
+                  <button className="dropdown-item" onClick={() => navigate('/orders')}>
+                    <Package /> Orders
+                  </button>
+                  <button className="dropdown-item">
+                    <Settings /> Settings
+                  </button>
+                  <button className="dropdown-item" onClick={logout} title="Logout">
+                    <LogOut /> Logout
+                  </button>
+                </div>
+              )}
+            </div>
+          ) : (
+            <button className="navbar-login-button" onClick={onLoginOpen} title="Login">
+              <LogIn />
+            </button>
+          )}
 
           {/* Mobile Menu Button */}
           <button className="navbar-menu-button" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>

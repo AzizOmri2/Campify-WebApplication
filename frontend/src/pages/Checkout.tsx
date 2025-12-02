@@ -4,32 +4,77 @@ import { useCart } from '@/contexts/CartContext';
 import { useNotification } from '@/contexts/NotificationContext';
 import { CreditCard } from 'lucide-react';
 import './Checkout.css';
+import { useUser } from '@/contexts/UserContext';
+import { useApi } from '@/contexts/ApiContext';
 
 const Checkout = () => {
   const { cart, cartTotal, clearCart } = useCart();
-  const { success } = useNotification();
+  const { success, error } = useNotification();
+  const { user } = useUser();
+  const { apiUrl } = useApi();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+
+  const shipping = cartTotal >= 100 ? 0 : 9.99;
+  const total = cartTotal + shipping;
+
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
 
-    // Simulate payment processing
-    setTimeout(() => {
+    try {
+      // Collect shipping info from the form
+      const address = {
+        first_name: (document.getElementById('firstName') as HTMLInputElement).value,
+        last_name: (document.getElementById('lastName') as HTMLInputElement).value,
+        email: (document.getElementById('email') as HTMLInputElement).value,
+        address: (document.getElementById('address') as HTMLInputElement).value,
+        city: (document.getElementById('city') as HTMLInputElement).value,
+        zip: (document.getElementById('zip') as HTMLInputElement).value,
+      };
+
+      // Prepare payload
+      const payload = {
+        items: cart.map(item => ({
+          product_id: item._id,
+          name: item.name,
+          price: item.price,
+          quantity: item.quantity,
+        })),
+        amount: total,
+        address,
+        payment: true,
+        status: 'paid',
+      };
+
+      // Send request to backend
+      const response = await fetch(`${apiUrl}/api/orders/checkout/${user.id}/`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Checkout failed');
+      }
+
+      // Success handling
       clearCart();
-      success('Order placed successfully! Thank you for your purchase. Order confirmation sent to your email.');
+      success(`Order placed successfully!`);
       navigate('/');
-    }, 2000);
+    } catch (err: any) {
+      console.error(err);
+      error(err.message || 'Something went wrong during checkout');
+    } finally {
+      setLoading(false);
+    }
   };
 
-  if (cart.length === 0) {
-    navigate('/cart');
-    return null;
-  }
-
-  const shipping = cartTotal >= 100 ? 0 : 9.99;
-  const total = cartTotal + shipping;
 
   return (
     <div className="checkout-page">
@@ -95,7 +140,7 @@ const Checkout = () => {
 
             <button type="submit" className="checkout-submit-button" disabled={loading}>
               <CreditCard />
-              {loading ? 'Processing...' : `Pay $${total.toFixed(2)}`}
+              {loading ? 'Processing...' : `Pay ${total.toFixed(2)} TND`}
             </button>
           </form>
 
@@ -106,12 +151,12 @@ const Checkout = () => {
               
               <div className="checkout-items">
                 {cart.map((item) => (
-                  <div key={item.id} className="checkout-item">
+                  <div key={item._id} className="checkout-item">
                     <span className="checkout-item-name">
                       {item.name} × {item.quantity}
                     </span>
                     <span className="checkout-item-price">
-                      ${(item.price * item.quantity).toFixed(2)}
+                      {(item.price * item.quantity).toFixed(2)} TND
                     </span>
                   </div>
                 ))}
@@ -122,18 +167,18 @@ const Checkout = () => {
               <div className="checkout-summary-details">
                 <div className="checkout-summary-row">
                   <span className="checkout-summary-label">Subtotal</span>
-                  <span className="checkout-summary-value">${cartTotal.toFixed(2)}</span>
+                  <span className="checkout-summary-value">{cartTotal.toFixed(2)} TND</span>
                 </div>
                 <div className="checkout-summary-row">
                   <span className="checkout-summary-label">Shipping</span>
                   <span className="checkout-summary-value">
-                    {shipping === 0 ? 'FREE' : `$${shipping.toFixed(2)}`}
+                    {shipping === 0 ? 'FREE' : `${shipping.toFixed(2)} TND`}
                   </span>
                 </div>
                 <div className="checkout-divider" />
                 <div className="checkout-summary-total">
                   <span>Total</span>
-                  <span className="checkout-summary-total-value">${total.toFixed(2)}</span>
+                  <span className="checkout-summary-total-value">{total.toFixed(2)} TND</span>
                 </div>
               </div>
             </div>

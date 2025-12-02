@@ -1,0 +1,146 @@
+[
+  {
+    "name": "Forest Camping Tent 4-Person",
+    "price": 289.99,
+    "category": "Tents",
+    "image": "https://m.media-amazon.com/images/I/81xTPwr-CpL.jpg",
+    "stock": 12,
+    "description": "Spacious 4-person tent with waterproof coating and easy setup — ideal for woodland camping trips.",
+    "features": ["Waterproof","Easy Setup","Vestibule Storage","UV Resistant"]
+  },
+  {
+    "name": "Compact 2-Person Backpacking Tent",
+    "price": 179.50,
+    "category": "Tents",
+    "image": "https://m.media-amazon.com/images/I/61VxB3chNGL._AC_UF1000,1000_QL80_.jpg",
+    "stock": 8,
+    "description": "Lightweight 2-person tent for trekking and spontaneous adventures. Quick to pitch and tear down.",
+    "features": ["Lightweight","Compact","Wind Resistant","Rainfly Included"]
+  },
+  {
+    "name": "65L Hiking Backpack - TrailMaster",
+    "price": 159.99,
+    "category": "Backpacks",
+    "image": "https://www.trawoc.com/cdn/shop/files/flyspeck-65-l-travel-backpack-with-lightweight-build-with-multi-pocket-design-navyblue-7129639.jpg?v=1762964745",
+    "stock": 25,
+    "description": "Durable 65 L backpack with multiple compartments and rain cover — perfect for long hikes and camping trips.",
+    "features": ["65L Capacity","Adjustable Straps","Rain Cover","Hydration Compatible"]
+  },
+  {
+    "name": "Compact 25L Daypack",
+    "price": 49.99,
+    "category": "Backpacks",
+    "image": "https://contents.mediadecathlon.com/p2621819/sq/k$3d16d306890d2e986a535b6bb861fc26/25l-foldable-waterproof-hiking-backpack-travel-khaki-green-forclaz-8560421.jpg?f=700x700&format=auto",
+    "stock": 40,
+    "description": "Lightweight 25 L daypack for short hikes or city/nature trips. Minimalist and ergonomic design.",
+    "features": ["25L Capacity","Water Resistant","Comfortable Straps","Lightweight"]
+  },
+  {
+    "name": "Down Sleeping Bag -10°C",
+    "price": 139.99,
+    "category": "Sleeping Gear",
+    "image": "https://contents.mediadecathlon.com/p2606759/k$3e9968a5dc3c4ef6b4802024cd1c09ff/picture.jpg",
+    "stock": 30,
+    "description": "Premium down-filled sleeping bag rated for -10°C. Lightweight and compressible — great for backpacking.",
+    "features": ["Down Insulation","Compression Sack","Draft Collar","Lightweight"]
+  },
+  {
+    "name": "Synthetic Sleeping Bag 0°C",
+    "price": 89.99,
+    "category": "Sleeping Gear",
+    "image": "https://seatosummit.eu/cdn/shop/files/HamelinWomensSyntheticSleepingBag-1C-30F_R_ASL043132-050801_PRIMARY-1500x1500-da33726.jpg?v=1737369985",
+    "stock": 45,
+    "description": "Synthetic insulated sleeping bag rated for 0°C. Easy to clean and ideal for mild-weather camping.",
+    "features": ["Synthetic Insulation","Machine Washable","Compact","Lightweight"]
+  },
+  {
+    "name": "LED Camping Lantern - 1000 Lm",
+    "price": 34.99,
+    "category": "Lighting",
+    "image": "https://m.media-amazon.com/images/I/514Q7zKRQgL._AC_SL1200_.jpg",
+    "stock": 70,
+    "description": "Bright LED lantern with 360° illumination and long battery life for campsite use.",
+    "features": ["1000 Lumens","Rechargeable","Water Resistant","Adjustable Brightness"]
+  },
+  {
+    "name": "Solar Powered Folding Lantern",
+    "price": 27.50,
+    "category": "Lighting",
+    "image": "https://m.media-amazon.com/images/I/71V6KUKppEL.jpg",
+    "stock": 55,
+    "description": "Foldable solar lantern — perfect for hiking, night walks, or sustainable camping trips.",
+    "features": ["Solar Powered","Compact","Water Resistant","Lightweight"]
+  },
+  {
+    "name": "Portable Camp Stove Deluxe",
+    "price": 79.99,
+    "category": "Cooking",
+    "image": "https://s3.amazonaws.com/images.gearjunkie.com/uploads/2022/11/DSC2363.jpg",
+    "stock": 42,
+    "description": "Compact and efficient camp stove with dual burners. Perfect for cooking meals outdoors.",
+    "features": ["Dual Burners", "Wind Resistant", "Piezo Ignition", "Portable"]
+  },
+  {
+    "name": "Trekking Poles Set",
+    "price": 59.99,
+    "category": "Hiking",
+    "image": "https://m.media-amazon.com/images/I/6164GFCMaTL._AC_UF1000,1000_QL80_.jpg",
+    "stock": 38,
+    "description": "Adjustable aluminum trekking poles with comfortable grips and shock absorption.",
+    "features": ["Adjustable Height", "Cork Grips", "Shock Absorption", "Lightweight"]
+  },
+  {
+    "name": "Insulated Water Bottle 32oz",
+    "price": 39.99,
+    "category": "Hydration",
+    "image": "https://images-cdn.ubuy.co.in/6360771fcfe1af58d20c8fab-thermos-water-bottles-32-oz-stainless.jpg",
+    "stock": 89,
+    "description": "Vacuum-insulated stainless steel bottle keeps drinks cold for 24 hours or hot for 12 hours.",
+    "features": ["32oz Capacity", "Leak Proof", "BPA Free", "Dishwasher Safe"]
+  },
+  {
+    "name": "Camping Hammock Double",
+    "price": 69.99,
+    "category": "Camping Furniture",
+    "image": "https://www.tentsile.com/cdn/shop/products/Tentsile_Phase3_March19_ByTomKahler_Lowres_105of182_1000px.jpg?v=1742315391&width=1000",
+    "stock": 28,
+    "description": "Lightweight portable hammock for two. Sets up in seconds and packs down small.",
+    "features": ["500lb Capacity", "Quick Setup", "Breathable Fabric", "Includes Straps"]
+  },
+  {
+    "name": "Folding Camp Chair",
+    "price": 54.99,
+    "category": "Camping Furniture",
+    "image": "https://www.roamadventureco.com/cdn/shop/files/camp_chair_banner_4.png?v=1685981940",
+    "stock": 36,
+    "description": "Comfortable folding chair with cup holder and storage pocket. Lightweight and portable.",
+    "features": ["300lb Capacity", "Cup Holder", "Carry Bag", "Padded Seat"]
+  },
+  {
+    "name": "Multi-Tool Camping Kit",
+    "price": 44.99,
+    "category": "Tools",
+    "image": "https://m.media-amazon.com/images/I/71qm7IgEHIL.jpg",
+    "stock": 55,
+    "description": "Essential 15-in-1 multi-tool with knife, pliers, screwdrivers, and more.",
+    "features": ["15 Tools", "Stainless Steel", "Belt Pouch", "Lifetime Warranty"]
+  },
+  {
+    "name": "First Aid Kit Complete",
+    "price": 49.99,
+    "category": "Safety",
+    "image": "https://evaq8.co.uk/images/product/E350R%202024%20Dom%20hero%20xcart.jpg",
+    "stock": 44,
+    "description": "Comprehensive 200-piece first aid kit for outdoor adventures and emergencies.",
+    "features": ["200 Pieces", "Waterproof Case", "Organized Compartments", "Emergency Guide"]
+  },
+  {
+    "name": "Waterproof Dry Bag 20L",
+    "price": 29.99,
+    "category": "Storage",
+    "image": "https://m.media-amazon.com/images/I/61f3LDAuUjL._AC_SL1302_.jpg",
+    "stock": 72,
+    "description": "Keep your gear dry with this durable waterproof dry bag. Perfect for kayaking and rafting.",
+    "features": ["20L Capacity", "Roll-Top Closure", "Shoulder Strap", "Floating Design"]
+  }
+]

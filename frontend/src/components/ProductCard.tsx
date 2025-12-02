@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import './ProductCard.css';
 
 interface Product {
-  id: number;
+  _id: string;
   name: string;
   price: number;
   category: string;
@@ -21,7 +21,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
 
   return (
     <div className="product-card">
-      <Link to={`/product/${product.id}`}>
+      <Link to={`/product/${product._id}`}>
         <div className="product-card-image-wrapper">
           <img src={product.image} alt={product.name} className="product-card-image"/>
         </div>
@@ -29,14 +29,14 @@ const ProductCard = ({ product }: ProductCardProps) => {
       
       <div className="product-card-content">
         <div className="product-card-category">{product.category}</div>
-        <Link to={`/product/${product.id}`}>
+        <Link to={`/product/${product._id}`}>
           <h3 className="product-card-title">
             {product.name}
           </h3>
         </Link>
         <div className="product-card-details">
           <span className="product-card-price">
-            ${product.price.toFixed(2)}
+            {product.price.toFixed(2)} TND
           </span>
           {product.stock < 10 && (
             <span className="product-card-stock">

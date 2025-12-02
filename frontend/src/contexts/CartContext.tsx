@@ -1,8 +1,11 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { useNotification } from './NotificationContext';
+import { useUser } from './UserContext';
+import { useApi } from './ApiContext';
+import axios from 'axios';
 
 export interface CartItem {
-  id: number;
+  _id: string;
   name: string;
   price: number;
   quantity: number;
@@ -12,75 +15,147 @@ export interface CartItem {
 interface CartContextType {
   cart: CartItem[];
   addToCart: (product: Omit<CartItem, 'quantity'>) => void;
-  removeFromCart: (id: number) => void;
-  updateQuantity: (id: number, quantity: number) => void;
+  removeFromCart: (id: string) => void;
+  updateQuantity: (id: string, quantity: number) => void;
   clearCart: () => void;
   cartTotal: number;
   cartCount: number;
+  fetchCart: () => void;
+  loading: boolean;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const { success } = useNotification();
+  const { success, error } = useNotification();
+  const { user, token } = useUser();
+  const { apiUrl } = useApi();
+  const [loading, setLoading] = useState(false);
+
   const [cart, setCart] = useState<CartItem[]>(() => {
     const saved = localStorage.getItem('campify-cart');
     return saved ? JSON.parse(saved) : [];
   });
 
+
+  
+
+  // Fetch cart from backend when user logs in
+  const fetchCart = async () => {
+    if (!user) return;
+    setLoading(true);
+    try {
+      const res = await axios.get(`${apiUrl}/api/users/cart/${user.id}/`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setCart(res.data.items || []);
+    } catch (err: any) {
+      error(err.response?.data?.message || 'Failed to fetch cart');
+    } finally {
+      setLoading(false); // stop loading
+    }
+  };
+
+  // Fetch cart when user logs in or logs out
   useEffect(() => {
-    localStorage.setItem('campify-cart', JSON.stringify(cart));
+    if (!user) {
+      setCart([]); // clear cart state
+      localStorage.removeItem('campify-cart'); // remove from localStorage
+    } else {
+      fetchCart(); // fetch from backend
+    }
+  }, [user]); // only depend on user, NOT cart
+
+  // Save cart to localStorage whenever it changes
+  useEffect(() => {
+    if (cart.length > 0) { // only save if there are items
+      localStorage.setItem('campify-cart', JSON.stringify(cart));
+    }
   }, [cart]);
 
-  const addToCart = (product: Omit<CartItem, 'quantity'>) => {
-    setCart((prev) => {
-      const existing = prev.find((item) => item.id === product.id);
-      if (existing) {
-        success(`Increased quantity of ${product.name}`);
-        return prev.map((item) =>
-          item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
-        );
-      }
+  const addToCart = async (product: Omit<CartItem, 'quantity'>) => {
+    if (!user) return error('Oops! You need an account to add items to cart.');
+
+    try {
+      const res = await axios.post(`${apiUrl}/api/users/cart/${user.id}/add/`, { product_id: product._id }, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      
+      // Merge backend items with current product details (for immediate display)
+      const updatedCart = res.data.items.map(item => {
+        if (item._id === product._id) {
+          return { ...item, name: product.name, price: product.price, image: product.image };
+        }
+        return item;
+      });
+
+      setCart(updatedCart);
       success(`${product.name} has been added to your cart`);
-      return [...prev, { ...product, quantity: 1 }];
-    });
+    } catch (err: any) {
+      error(err.response?.data?.message || 'Failed to add to cart');
+    }
   };
 
-  const removeFromCart = (id: number) => {
-    setCart((prev) => prev.filter((item) => item.id !== id));
-    success('Item has been removed from your cart');
+  const removeFromCart = async (id: string) => {
+    if (!user) return error('Oops! You need an account to remove items from cart.');
+
+    try {
+      const res = await axios.delete(`${apiUrl}/api/users/cart/${user.id}/remove/`, {
+        headers: { Authorization: `Bearer ${token}` },
+        data: { product_id: id },
+      });
+      
+      // Optionally, merge current product info if needed
+      const updatedCart = res.data.items.map(item => {
+        const existing = cart.find(c => c._id === item._id);
+        if (existing) return { ...item, name: existing.name, price: existing.price, image: existing.image };
+        return item;
+      });
+
+      setCart(updatedCart);
+      success('Item removed from cart');
+    } catch (err: any) {
+      error(err.response?.data?.message || 'Failed to remove item');
+    }
   };
 
-  const updateQuantity = (id: number, quantity: number) => {
+  const updateQuantity = async (id: string, quantity: number) => {
+    if (!user) return error('Oops! You need an account to update cart.');
+
     if (quantity < 1) {
       removeFromCart(id);
       return;
     }
-    setCart((prev) =>
-      prev.map((item) => (item.id === id ? { ...item, quantity } : item))
-    );
+
+    try {
+      const res = await axios.put(`${apiUrl}/api/users/cart/${user.id}/update/`, { product_id: id, quantity }, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setCart(res.data.items);
+    } catch (err: any) {
+      error(err.response?.data?.message || 'Failed to update quantity');
+    }
   };
 
-  const clearCart = () => {
-    setCart([]);
-    success('All items have been removed from your cart');
+  const clearCart = async () => {
+    if (!user) return error('Oops! You need an account to clear cart.');
+
+    try {
+      const res = await axios.delete(`${apiUrl}/api/users/cart/${user.id}/clear/`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setCart([]);
+      success('All items removed from cart');
+    } catch (err: any) {
+      error(err.response?.data?.message || 'Failed to clear cart');
+    }
   };
 
   const cartTotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
   const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
-    <CartContext.Provider
-      value={{
-        cart,
-        addToCart,
-        removeFromCart,
-        updateQuantity,
-        clearCart,
-        cartTotal,
-        cartCount,
-      }}
-    >
+    <CartContext.Provider value={{ cart, addToCart, removeFromCart, updateQuantity, clearCart, cartTotal, cartCount, fetchCart, loading }}>
       {children}
     </CartContext.Provider>
   );
@@ -88,8 +163,6 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
 export const useCart = () => {
   const context = useContext(CartContext);
-  if (context === undefined) {
-    throw new Error('useCart must be used within a CartProvider');
-  }
+  if (!context) throw new Error('useCart must be used within CartProvider');
   return context;
 };
