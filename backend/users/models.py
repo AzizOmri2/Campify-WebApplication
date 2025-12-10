@@ -1,5 +1,6 @@
-from mongoengine import Document, StringField, EmailField, ListField, EmbeddedDocument, EmbeddedDocumentField, IntField, FloatField
+from mongoengine import Document, StringField, EmailField, ListField, EmbeddedDocument, EmbeddedDocumentField, IntField, FloatField, DateTimeField
 import bcrypt
+from datetime import datetime
 
 
 # 🔹 Items stored inside cartData
@@ -17,6 +18,12 @@ class User(Document):
 
     # 🔥 Cart saved directly inside User document
     cartData = ListField(EmbeddedDocumentField(CartItem), default=[])
+
+    # ✅ New fields
+    ROLE_CHOICES = ("Admin", "User")
+    role = StringField(choices=ROLE_CHOICES, default="User")
+    status = StringField(default="Active")  # Active / Inactive
+    joined = DateTimeField(default=datetime.utcnow)
 
     def set_password(self, raw_password):
         self.password = bcrypt.hashpw(raw_password.encode(), bcrypt.gensalt()).decode()

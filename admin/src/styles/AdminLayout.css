@@ -1,0 +1,38 @@
+.admin-layout {
+  min-height: 100vh;
+  background-color: var(--background);
+}
+
+.admin-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  background-color: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(4px);
+}
+
+.admin-main {
+  display: flex;
+  flex-direction: column;
+  transition: margin-left var(--transition-slow);
+}
+
+.admin-main.sidebar-expanded {
+  margin-left: var(--sidebar-width);
+}
+
+.admin-main.sidebar-collapsed {
+  margin-left: var(--sidebar-collapsed-width);
+}
+
+.admin-content {
+  flex: 1;
+  padding: 1.5rem;
+}
+
+/* Responsive */
+@media (max-width: 1023px) {
+  .admin-main {
+    margin-left: 0 !important;
+  }
+}

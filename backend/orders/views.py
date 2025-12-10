@@ -40,7 +40,7 @@ class CheckoutView(APIView):
 
         # 6. Create Order
         order = Order.objects.create(
-            user_id=str(user.id),
+            user=user,  # ReferenceField expects the User object, not an id
             items=order_items,
             amount=total,
             address=order_address,
@@ -58,7 +58,8 @@ class CheckoutView(APIView):
 class UserOrdersView(APIView):
     def get(self, request, user_id):
         try:
-            orders = Order.objects(user_id=user_id).order_by('-date')
+            user = User.objects.get(id=user_id)
+            orders = Order.objects(user=user).order_by('-date')
 
             orders_list = []
             for order in orders:

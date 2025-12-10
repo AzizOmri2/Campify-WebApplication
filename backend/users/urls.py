@@ -1,7 +1,7 @@
 from django.urls import path
 from .views import (
-    RegisterUser, LoginUser,
-    get_user_cart, add_user_cart, update_user_cart, remove_user_cart, clear_user_cart
+    RegisterUser, LoginUser, DeleteUser, BanUser, UnBanUser,
+    get_user_cart, add_user_cart, update_user_cart, remove_user_cart, clear_user_cart, get_all_users
 )
 
 
@@ -15,4 +15,10 @@ urlpatterns = [
     path("cart/<str:user_id>/update/", update_user_cart),
     path("cart/<str:user_id>/remove/", remove_user_cart),
     path("cart/<str:user_id>/clear/", clear_user_cart),
+
+    # Admin Panel
+    path("admin", get_all_users),
+    path("admin/<str:user_id>/delete/", DeleteUser.as_view(), name="delete_user"),
+    path("admin/<str:user_id>/ban/", BanUser.as_view(), name="ban_user"),
+    path("admin/<str:user_id>/unban/", UnBanUser.as_view(), name="unban_user"),
 ]

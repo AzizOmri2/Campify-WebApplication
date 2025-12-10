@@ -123,13 +123,6 @@
   color: var(--color-primary);
 }
 
-.orders-loading {
-  text-align: center;
-  font-size: 1.25rem;
-  color: var(--color-primary);
-  padding: 3rem;
-}
-
 .orders-empty {
   min-height: 100vh;
   display: flex;
@@ -186,4 +179,32 @@
 @keyframes slideInFade {
   0% { opacity: 0; transform: translateY(20px); }
   100% { opacity: 1; transform: translateY(0); }
+}
+
+
+
+.orders-loading-icon {
+  color: var(--color-muted-foreground);
+  height: 6rem;
+  width: 6rem;
+  margin-bottom: var(--spacing-md);
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0); }
+  100% { transform: rotate(360deg); }
+}
+
+.orders-loading-text {
+  font-size: 1.875rem;
+  font-family: var(--font-display);
+  font-weight: 700;
+  margin-bottom: var(--spacing-md);
+  opacity: 0;
+  animation: fadeIn 0.5s forwards;
+}
+
+@keyframes fadeIn {
+  to { opacity: 1; }
 }

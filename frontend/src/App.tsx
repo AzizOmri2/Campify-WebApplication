@@ -20,6 +20,8 @@ import { useLocation } from 'react-router-dom';
 import { UserProvider } from "./contexts/UserContext";
 import Orders from "./pages/Orders";
 import ProtectedRoute from "./lib/ProtectedRoute";
+import { ProductProvider } from "./contexts/ProductContext";
+import { OrderProvider } from "./contexts/OrderContext";
 
 
 const queryClient = new QueryClient();
@@ -79,19 +81,23 @@ const App = () => {
         <NotificationProvider>
           <UserProvider>
             <CartProvider>
-              <BrowserRouter>
-                <div className="app-container">
-                  <Navbar onLoginOpen={handleLoginOpen}/>
+              <ProductProvider>
+                <OrderProvider>
+                  <BrowserRouter>
+                    <div className="app-container">
+                      <Navbar onLoginOpen={handleLoginOpen}/>
 
-                  {isLoginModalOpen && (
-                    <LoginModal onClose={handleLoginClose}/>
-                  )}
-                  <main className="main-content">
-                    <AppRoutes />
-                  </main>
-                  <Footer />
-                </div>
-              </BrowserRouter>
+                      {isLoginModalOpen && (
+                        <LoginModal onClose={handleLoginClose}/>
+                      )}
+                      <main className="main-content">
+                        <AppRoutes />
+                      </main>
+                      <Footer />
+                    </div>
+                  </BrowserRouter>
+                </OrderProvider>
+              </ProductProvider>
             </CartProvider>
           </UserProvider>
         </NotificationProvider>

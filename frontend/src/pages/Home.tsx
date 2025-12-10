@@ -1,74 +1,12 @@
 import HeroSection from '@/components/HeroSection';
 import ProductList from '@/components/ProductList';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Shield, Truck, Award } from 'lucide-react';
+import { ArrowRight, Shield, Truck, Award, ShoppingBag, AlertCircle } from 'lucide-react';
 import './Home.css';
-import { useApi } from '@/contexts/ApiContext';
-import { useEffect, useState } from 'react';
-
-interface ProductType {
-  _id: string;
-  name: string;
-  price: number;
-  category: string;
-  image: string;
-  stock: number;
-}
+import { useProducts } from '@/contexts/ProductContext';
 
 const Home = () => {
-  const { apiUrl } = useApi(); // get API base URL from context
-  const [productsData, setProductsData] = useState<ProductType[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
-
-
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const response = await fetch(`${apiUrl}/api/products/`);
-        if (!response.ok) {
-          throw new Error(`Error: ${response.status}`);
-        }
-        const data: ProductType[] = await response.json();
-        setProductsData(data);
-      } catch (err: any) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchProducts();
-  }, [apiUrl]);
-
-  const featuredProducts = productsData.slice(0, 4);
-
-  if (loading) {
-    return (
-      <div className="home-page">
-        <HeroSection />
-        <div className="container">
-          <h2>Featured Products</h2>
-          <div className="loading-container">
-            {Array.from({ length: 4 }).map((_, index) => (
-              <div key={index} className="skeleton-card"></div>
-            ))}
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="home-page">
-        <HeroSection />
-        <div className="container">
-          <p className="error-message">Failed to load products: {error}</p>
-        </div>
-      </div>
-    );
-  }
+  const { products, featuredProducts, loading } = useProducts();
 
   return (
     <div className="home-page">
@@ -103,7 +41,7 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Featured Products */}
+      {/* Featured Products Section */}
       <section className="featured-section">
         <div className="container">
           <div className="featured-header">
@@ -111,21 +49,46 @@ const Home = () => {
               <h2>Featured Products</h2>
               <p className="featured-subtitle">Explore our most popular camping gear</p>
             </div>
-            <Link to="/shop" className="featured-view-all">
-              View All
-              <ArrowRight />
-            </Link>
+            {!loading && (
+              <Link to="/shop" className="featured-view-all">
+                View All <ArrowRight />
+              </Link>
+            )}
           </div>
-          <ProductList products={featuredProducts} />
+
+          {/* Global Loading State */}
+          {loading && (
+            <div className="global-loading">
+              <div className="global-loading-icon-wrapper">
+                <ShoppingBag className="global-loading-icon" />
+                <p className="global-loading-text">Getting everything ready for your shopping experience...</p>
+              </div>
+            </div>
+          )}
+
+          {/* Empty State */}
+          {!loading && products.length === 0 && (
+            <div className="orders-empty">
+              <ShoppingBag className="orders-empty-icon" />
+              <h1 className="orders-empty-title">No products available</h1>
+              <p className="orders-empty-description">
+                Looks like we don't have any products yet. Check back soon!
+              </p>
+              <Link to="/shop" className="orders-empty-button">
+                Browse Shop
+              </Link>
+            </div>
+          )}
+
+          {/* Products */}
+          {!loading && <ProductList products={featuredProducts} />}
         </div>
       </section>
 
       {/* CTA Section */}
       <section className="cta-section">
         <div className="container">
-          <h2 className="cta-title">
-            Ready for Your Next Adventure?
-          </h2>
+          <h2 className="cta-title">Ready for Your Next Adventure?</h2>
           <p className="cta-description">
             Browse our full collection of premium camping equipment
           </p>
