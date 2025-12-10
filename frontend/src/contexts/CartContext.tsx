@@ -50,7 +50,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
       });
       setCart(res.data.items || []);
     } catch (err: any) {
-      error(err.response?.data?.message || 'Failed to fetch cart');
+      error('Unable to retrieve your cart. Please try again');
     } finally {
       setLoading(false); // stop loading
     }
@@ -74,7 +74,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }, [cart]);
 
   const addToCart = async (product: Omit<CartItem, 'quantity'>) => {
-    if (!user) return error('Oops! You need an account to add items to cart.');
+    if (!user) return error('Please log in to add items to your cart.');
 
     try {
       const res = await axios.post(`${apiUrl}/api/users/cart/${user.id}/add/`, { product_id: product._id }, {
@@ -90,14 +90,14 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
       });
 
       setCart(updatedCart);
-      success(`${product.name} has been added to your cart`);
+      success(`Great! ${product.name} has been added to your cart`);
     } catch (err: any) {
-      error(err.response?.data?.message || 'Failed to add to cart');
+      error('Unable to add this item to your cart. Please try again.');
     }
   };
 
   const removeFromCart = async (id: string) => {
-    if (!user) return error('Oops! You need an account to remove items from cart.');
+    if (!user) return error('Please log in to remove items from your cart.');
 
     try {
       const res = await axios.delete(`${apiUrl}/api/users/cart/${user.id}/remove/`, {
@@ -113,14 +113,14 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
       });
 
       setCart(updatedCart);
-      success('Item removed from cart');
+      success('Item has been successfully removed from your cart.');
     } catch (err: any) {
-      error(err.response?.data?.message || 'Failed to remove item');
+      error('Unable to remove this item from your cart. Please try again.');
     }
   };
 
   const updateQuantity = async (id: string, quantity: number) => {
-    if (!user) return error('Oops! You need an account to update cart.');
+    if (!user) return error('Please log in to update your cart.');
 
     if (quantity < 1) {
       removeFromCart(id);
@@ -133,21 +133,21 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
       });
       setCart(res.data.items);
     } catch (err: any) {
-      error(err.response?.data?.message || 'Failed to update quantity');
+      error('Unable to update item quantity. Please try again.');
     }
   };
 
   const clearCart = async () => {
-    if (!user) return error('Oops! You need an account to clear cart.');
+    if (!user) return error('Please log in to clear your cart.');
 
     try {
       const res = await axios.delete(`${apiUrl}/api/users/cart/${user.id}/clear/`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setCart([]);
-      success('All items removed from cart');
+      success('Your cart is now empty.');
     } catch (err: any) {
-      error(err.response?.data?.message || 'Failed to clear cart');
+      error('Unable to clear your cart. Please try again.');
     }
   };
 

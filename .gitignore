@@ -1,3 +1,22 @@
+# Admin 
+admin/logs
+admin/*.log
+admin/npm-debug.log*
+admin/yarn-debug.log*
+admin/yarn-error.log*
+admin/pnpm-debug.log*
+admin/lerna-debug.log*
+
+admin/node_modules
+admin/dist
+admin/dist-ssr
+admin/*.local
+admin/.env
+admin/.env.*
+
+
+# Frontend
+
 frontend/node_modules/
 frontend/build/
 frontend/dist/
@@ -6,12 +25,10 @@ frontend/.cache/
 frontend/.parcel-cache/
 frontend/.turbo/
 
-# React environment files
 frontend/.env
 frontend/.env.* 
 frontend/*.local
 
-# Package logs
 frontend/logs
 frontend/*.log
 frontend/npm-debug.log*
@@ -22,23 +39,21 @@ frontend/lerna-debug.log*
 
 
 
+# Backend
 
 backend/venv/
 backend/env/
 backend/.venv/
 
-# Python & Django cache
 backend/**/__pycache__/
 backend/*.pyc
 backend/**/*.pyc
 backend/.pytest_cache/
 backend/.mypy_cache/
 
-# Django static & media
 backend/staticfiles/
 backend/media/
 
-# Local DB + sensitive configs
 backend/db.sqlite3
 backend/*.env
 backend/**.env

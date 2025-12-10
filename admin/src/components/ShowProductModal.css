@@ -1,0 +1,225 @@
+/* Modal overlay with blur background */
+.spm-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(10px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  opacity: 0;
+  transition: opacity 0.35s;
+}
+
+.spm-overlay.show {
+  opacity: 1;
+}
+
+.spm-overlay.closing {
+  opacity: 0;
+}
+
+/* Modal box with larger width and internal scroll */
+.spm-modal {
+  background: var(--card);
+  border-radius: var(--radius);
+  max-width: 1000px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 2rem;
+  position: relative;
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 0.35s, transform 0.35s;
+
+  /* Scrollbar */
+  scrollbar-width: thin;
+  scrollbar-color: var(--muted-foreground) transparent;
+}
+
+.spm-modal.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.spm-modal.closing {
+  opacity: 0;
+  transform: translateY(50px);
+}
+
+
+/* Scrollbar for Chrome, Edge, Safari */
+.spm-modal::-webkit-scrollbar { 
+  width: 6px; 
+}
+
+.spm-modal::-webkit-scrollbar-thumb { 
+  background: var(--muted-foreground); 
+  border-radius: 4px; 
+}
+
+.spm-modal::-webkit-scrollbar-track { 
+  background: transparent; 
+}
+
+
+/* Close button with smooth animation */
+.spm-close-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: transparent;
+  border: none;
+  font-size: 24px;
+  color: var(--muted-foreground);
+  cursor: pointer;
+  transition: color 0.25s, transform 0.25s;
+}
+.spm-close-btn:hover {
+  color: var(--destructive); 
+  transform: rotate(90deg) scale(1.2);
+}
+
+/* Modal content fade-in animation */
+.spm-modal-content {
+  animation: fadeInContent 0.4s ease forwards;
+}
+
+/* Header */
+.spm-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.spm-title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #111827;
+}
+
+/* Badges */
+.spm-badge {
+  display: inline-block;
+  padding: 0.35rem 0.65rem;
+  border-radius: 0.5rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-right: 0.5rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: default;
+}
+
+/* Category badge stays same as before */
+.spm-category {
+  background: #eee;
+  color: #333;
+}
+
+/* Other badges with hover effects */
+.spm-stock-available {
+  background: #d1fae5;
+  color: #065f46;
+}
+.spm-stock-out {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+.spm-price {
+  background: #fff7ed;
+  color: #c2410c;
+}
+.spm-features {
+  background: #e0f2fe;
+  color: #0369a1;
+}
+
+/* Badge hover effect for modern look */
+.spm-stock-available:hover,
+.spm-stock-out:hover,
+.spm-price:hover,
+.spm-features:hover,
+.spm-category:hover {
+  transform: translateY(-1.5px) scale(1);
+}
+
+/* Badges container */
+.spm-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;            /* slightly smaller but consistent spacing */
+  margin-bottom: 1.5rem;    /* more breathing room */
+  padding: 0.75rem 1rem;    /* internal padding */
+}
+
+/* Image */
+.spm-image-wrapper {
+  text-align: center;
+  margin: 2rem 0;
+  overflow: hidden;
+}
+.spm-image {
+  max-width: 500px;
+  width: 100%;
+  border-radius: 0.75rem;
+  object-fit: cover;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.spm-image:hover {
+  transform: scale(1.02);
+}
+
+/* Details */
+.spm-details p {
+  margin: 0.75rem 0;             /* more spacing between paragraphs */
+  line-height: 1.6;             /* better readability */
+  font-size: 1rem;              /* slightly larger */
+  word-break: break-word;       /* prevent overflow */
+}
+
+/* Features list */
+.spm-details ul {
+  margin: 0.5rem 0 0 1.5rem;    /* more spacing and indentation */
+  padding-left: 0;              /* remove default padding */
+  list-style: none;             /* remove default bullets */
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;                  /* spacing between items */
+}
+
+/* Custom bullets for features */
+.spm-details ul li::before {
+  content: "•";                 /* bullet symbol */
+  color: #6366f1;               /* modern accent color */
+  font-weight: bold;
+  display: inline-block;
+  width: 1em;
+  margin-left: -1em;            /* align bullet with text */
+}
+
+/* Optional: subtle hover for list items */
+.spm-details ul li:hover {
+  color: #1e3a8a;               /* darken text on hover */
+  cursor: pointer;
+}
+
+/* Animations */
+@keyframes fadeInOverlay {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes slideUpModal {
+  from { transform: translateY(50px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+@keyframes fadeInContent {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}

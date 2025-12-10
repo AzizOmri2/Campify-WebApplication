@@ -1,8 +1,9 @@
 from mongoengine import (
     Document, EmbeddedDocument, StringField, ListField, EmbeddedDocumentField,
-    DecimalField, BooleanField, DateTimeField
+    DecimalField, BooleanField, DateTimeField, ReferenceField, CASCADE
 )
 from datetime import datetime
+from users.models import User
 
 class Address(EmbeddedDocument):
     first_name = StringField(required=True)
@@ -19,7 +20,7 @@ class OrderItem(EmbeddedDocument):
     quantity = DecimalField(required=True, precision=0)
 
 class Order(Document):
-    user_id = StringField(required=True)
+    user = ReferenceField(User, reverse_delete_rule=CASCADE)  # CASCADE delete
     items = ListField(EmbeddedDocumentField(OrderItem))
     amount = DecimalField(required=True, precision=2)
     address = EmbeddedDocumentField(Address, required=True)

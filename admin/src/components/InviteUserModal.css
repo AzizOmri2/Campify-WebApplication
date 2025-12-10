@@ -1,0 +1,107 @@
+/* Modal Overlay */
+.invite-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.25);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease-in-out;
+  z-index: 1000;
+}
+
+.invite-modal-overlay.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Modal Box */
+.invite-modal {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  transform: translateY(50px) scale(0.95);
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+  width: 400px;
+  max-width: 90%;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.invite-modal.show {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Form */
+.invite-form .input-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+.invite-form label {
+  font-weight: bold;
+  margin-bottom: 0.3rem;
+  color: #333;
+}
+
+.invite-form input,
+.invite-form select {
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
+  border: 1px solid #ccc;
+  outline: none;
+  font-size: 0.95rem;
+  transition: border-color 0.2s ease;
+}
+
+.invite-form input:focus,
+.invite-form select:focus {
+  border-color: var(--primary);
+}
+
+/* Modal actions */
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+}
+
+.modal-actions .btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+/* Invite button style */
+.btn-invite {
+  background-color: var(--primary);
+  color: white;
+}
+
+.btn-invite:hover {
+  transform: scale(1.05);
+  background-color: var(--primary);
+}
+
+/* Cancel button style */
+.btn-cancel {
+  background-color: #4d4d4d; /* gray */
+  color: white;
+}
+
+.btn-cancel:hover {
+  transform: scale(1.05);
+  background-color: #6a6a6a;
+  color: white;
+}

@@ -332,3 +332,50 @@
 .cart-empty-button:hover {
   background-color: var(--color-primary-hover);
 }
+
+
+/* ============================ */
+/*        GLOBAL LOADING        */
+/* ============================ */
+
+.global-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 2rem 0;
+  animation: fadeIn 0.4s ease-in-out;
+}
+
+.global-loading-icon-wrapper {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.global-loading-icon {
+  color: var(--color-muted-foreground);
+  height: 5rem;
+  width: 5rem;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+.global-loading-text {
+  font-size: 1.5rem;
+  font-family: var(--font-display);
+  font-weight: 700;
+  opacity: 0;
+  animation: fadeIn 0.5s forwards;
+}
+
+/* Spinner Animation */
+@keyframes spin {
+  0% { transform: rotate(0); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Fade In */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}

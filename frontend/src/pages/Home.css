@@ -165,3 +165,128 @@
   height: 1.25rem;
   width: 1.25rem;
 }
+
+/* ============================ */
+/*        GLOBAL LOADING        */
+/* ============================ */
+
+.global-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 2rem 0;
+  animation: fadeIn 0.4s ease-in-out;
+}
+
+.global-loading-icon-wrapper {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.global-loading-icon {
+  color: var(--color-muted-foreground);
+  height: 5rem;
+  width: 5rem;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+.global-loading-text {
+  font-size: 1.5rem;
+  font-family: var(--font-display);
+  font-weight: 700;
+  opacity: 0;
+  animation: fadeIn 0.5s forwards;
+}
+
+/* Spinner Animation */
+@keyframes spin {
+  0% { transform: rotate(0); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Fade In */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ========================== */
+/*        ERROR MESSAGE       */
+/* ========================== */
+
+/* Error Design */
+.shop-error {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 60vh;
+  text-align: center;
+  padding: 2rem;
+}
+
+.shop-error-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  background-color: #fff4f4;
+  padding: 2rem 3rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+}
+
+.shop-error-content:hover {
+  transform: translateY(-5px);
+}
+
+.shop-error-icon {
+  color: #ff4d4f;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.shop-error-content:hover .shop-error-icon {
+  transform: rotate(15deg) scale(1.2);
+  color: #ff7875;
+}
+
+.shop-error h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #ff4d4f;
+}
+
+.shop-error p {
+  color: #a8071a;
+  font-size: 1rem;
+}
+
+.shop-error-button {
+  background-color: #ff4d4f;
+  color: #fff;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.shop-error-button:hover {
+  background-color: #ff7875;
+  transform: scale(1.05);
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

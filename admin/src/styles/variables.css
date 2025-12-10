@@ -1,0 +1,84 @@
+:root {
+  /* Colors */
+  --background: hsl(40, 30%, 97%);
+  --foreground: hsl(25, 40%, 15%);
+  --card: hsl(0, 0%, 100%);
+  --card-foreground: hsl(25, 40%, 15%);
+  --primary: hsl(100, 60%, 25%);
+  --primary-foreground: hsl(0, 0%, 100%);
+  --secondary: hsl(100, 20%, 92%);
+  --secondary-foreground: hsl(100, 60%, 20%);
+  --muted: hsl(100, 20%, 90%);
+  --muted-foreground: hsl(100, 20%, 35%);
+  --accent: hsl(25, 85%, 55%);
+  --accent-foreground: hsl(0, 0%, 100%);
+  --destructive: hsl(0, 84%, 60%);
+  --destructive-foreground: hsl(0, 0%, 100%);
+  --border: hsl(40, 20%, 88%);
+  --input: hsl(40, 20%, 88%);
+  --ring: hsl(100, 60%, 25%);
+
+  /* Spacing */
+  --radius: 0.75rem;
+  --sidebar-width: 16rem;
+  --sidebar-collapsed-width: 4rem;
+  --navbar-height: 4rem;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+  --shadow-card-hover: 0 12px 24px -8px rgba(0, 0, 0, 0.1);
+
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-normal: 200ms ease;
+  --transition-slow: 300ms ease-in-out;
+}
+
+/* Global styles */
+* {
+  margin: 0px;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
+  background-color: var(--background);
+  color: var(--foreground);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes dropdownIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
