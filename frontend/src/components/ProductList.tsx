@@ -8,7 +8,7 @@ interface ProductType {
   name: string;
   price: number;
   category: string;
-  image: string;
+  image_url: string;
   stock: number;
 }
 

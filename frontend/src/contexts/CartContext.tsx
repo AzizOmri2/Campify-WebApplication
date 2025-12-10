@@ -9,7 +9,7 @@ export interface CartItem {
   name: string;
   price: number;
   quantity: number;
-  image: string;
+  image_url: string;
 }
 
 interface CartContextType {
@@ -84,7 +84,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
       // Merge backend items with current product details (for immediate display)
       const updatedCart = res.data.items.map(item => {
         if (item._id === product._id) {
-          return { ...item, name: product.name, price: product.price, image: product.image };
+          return { ...item, name: product.name, price: product.price, image: product.image_url };
         }
         return item;
       });
@@ -108,7 +108,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
       // Optionally, merge current product info if needed
       const updatedCart = res.data.items.map(item => {
         const existing = cart.find(c => c._id === item._id);
-        if (existing) return { ...item, name: existing.name, price: existing.price, image: existing.image };
+        if (existing) return { ...item, name: existing.name, price: existing.price, image: existing.image_url };
         return item;
       });
 

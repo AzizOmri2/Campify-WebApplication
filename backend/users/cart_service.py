@@ -20,7 +20,7 @@ def serialize_cart(cart_items):
             "price": product.price,
             "quantity": item.quantity,
             "category": product.category,
-            "image": getattr(product, "image", ""),
+            "image_url": getattr(product, "image_url", ""),
             "stock": getattr(product, "stock", 0),
             "description": getattr(product, "description", ""),
             "features": getattr(product, "features", []),
