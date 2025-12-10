@@ -12,7 +12,7 @@ interface ProductType {
   name: string;
   price: number;
   category: string;
-  image: string;
+  image_url: string;
   stock: number;
   description?: string;
   features?: string[];
@@ -63,7 +63,7 @@ const ProductDetails = () => {
             <div className="product-details-grid">
               {/* Product Image */}
               <div className="product-image-container">
-                <img src={product.image} alt={product.name} />
+                <img src={product.image_url} alt={product.name} />
               </div>
 
               {/* Product Info */}

@@ -8,7 +8,7 @@ interface Product {
   name: string;
   price: number;
   category: string;
-  image: string;
+  image_url: string;
   stock: number;
 }
 
@@ -23,7 +23,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
     <div className="product-card">
       <Link to={`/product/${product._id}`}>
         <div className="product-card-image-wrapper">
-          <img src={product.image} alt={product.name} className="product-card-image"/>
+          <img src={product.image_url} alt={product.name} className="product-card-image"/>
         </div>
       </Link>
       
