@@ -4,11 +4,13 @@ import CategoryFilter from '@/components/CategoryFilter';
 import './Shop.css';
 import { ShoppingBag } from 'lucide-react';
 import { useProducts } from '@/contexts/ProductContext';
+import { useApi } from '@/contexts/ApiContext';
 
 
 const Shop = () => {
   const { products, loading } = useProducts();
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const { apiUrl } = useApi();
 
 
   const categories = useMemo(() => {

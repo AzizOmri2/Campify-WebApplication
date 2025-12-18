@@ -1,0 +1,153 @@
+/* Modal overlay */
+.som-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(10px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  opacity: 0;
+  transition: opacity 0.35s;
+}
+
+.som-overlay.show {
+  opacity: 1;
+}
+
+.som-overlay.closing {
+  opacity: 0;
+}
+
+/* Modal box */
+.som-modal {
+  background: var(--card);
+  border-radius: var(--radius);
+  max-width: 900px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 2rem;
+  position: relative;
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 0.35s, transform 0.35s;
+  scrollbar-width: thin;
+  scrollbar-color: var(--muted-foreground) transparent;
+}
+
+.som-modal.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.som-modal.closing {
+  opacity: 0;
+  transform: translateY(50px);
+}
+
+/* Scrollbar (Chrome/Safari/Edge) */
+.som-modal::-webkit-scrollbar { width: 6px; }
+.som-modal::-webkit-scrollbar-thumb { background: var(--muted-foreground); border-radius: 4px; }
+.som-modal::-webkit-scrollbar-track { background: transparent; }
+
+/* Close button */
+.som-close-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: transparent;
+  border: none;
+  font-size: 24px;
+  color: var(--muted-foreground);
+  cursor: pointer;
+  transition: color 0.25s, transform 0.25s;
+}
+.som-close-btn:hover {
+  color: var(--destructive);
+  transform: rotate(90deg) scale(1.2);
+}
+
+/* Fade animation */
+.som-modal-content {
+  animation: fadeInContent 0.4s ease forwards;
+}
+
+/* Header */
+.som-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.som-title {
+  font-size: 1.7rem;
+  font-weight: 600;
+  color: #111827;
+}
+
+/* Badges */
+.som-badge {
+  display: inline-block;
+  padding: 0.35rem 0.65rem;
+  border-radius: 0.5rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-right: 0.5rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.som-badge:hover {
+  transform: translateY(-1.5px) scale(1.02);
+  cursor: pointer;
+}
+
+.som-status {
+  background: #e0e7ff;
+  color: #4338ca;
+}
+
+.som-badge-gray { background: #f3f4f6; color: #374151; }
+.som-badge-blue { background: #dbeafe; color: #1e3a8a; }
+.som-badge-green { background: #d1fae5; color: #065f46; }
+
+/* Sections */
+.som-section {
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.som-section h3 {
+  margin-bottom: 0.5rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.som-section ul {
+  list-style: none;
+  padding-left: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.som-section ul li::before {
+  content: "•";
+  color: #6366f1;
+  font-weight: bold;
+  display: inline-block;
+  width: 1em;
+  margin-left: -1em;
+}
+
+/* Animations */
+@keyframes fadeInContent {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}

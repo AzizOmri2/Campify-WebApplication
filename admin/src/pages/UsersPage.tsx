@@ -76,7 +76,7 @@ export default function UsersPage() {
           <p>Manage team members and permissions.</p>
         </div>
         <div className="page-header-actions">
-          <button className="btn btn-primary" onClick={() => setShowInviteModal(true)}>
+          <button className="btn btn-primary" onClick={() => setShowInviteModal(true)} title="Invite User">
             <UserPlus />
             Invite User
           </button>
@@ -128,7 +128,7 @@ export default function UsersPage() {
                         <Eye size={16} />
                       </button>
 
-                      <button className="icon-btn remove" title="Remove" onClick={() => handleDeleteClick(user.id)}>
+                      <button className="icon-btn remove" title="Delete" onClick={() => handleDeleteClick(user.id)}>
                         <Trash2 size={16} />
                       </button>
 
@@ -158,11 +158,11 @@ export default function UsersPage() {
               <p>Are you sure you want to delete this user?</p>
 
               <div className="modal-actions">
-                <button className="btn btn-delete-confirm" onClick={confirmDelete}>
+                <button className="btn btn-delete-confirm" onClick={confirmDelete} title="Delete">
                   <Trash2 className="delete-icon" size={18} />
                   Delete
                 </button>
-                <button className="btn btn-cancel" onClick={cancelDelete}>
+                <button className="btn btn-cancel" onClick={cancelDelete} title="Cancel">
                   Cancel
                 </button>
               </div>

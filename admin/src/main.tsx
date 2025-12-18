@@ -7,6 +7,7 @@ import { UserProvider } from './contexts/UserContext';
 import { OrderProvider } from './contexts/OrderContext';
 import "./index.css";
 import { ProductProvider } from './contexts/ProductContext';
+import { StatProvider } from './contexts/StatContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
@@ -17,7 +18,9 @@ root.render(
         <UserProvider>
           <ProductProvider>
             <OrderProvider>
-              <App />
+              <StatProvider>
+                <App />
+              </StatProvider>
             </OrderProvider>
           </ProductProvider>
         </UserProvider>

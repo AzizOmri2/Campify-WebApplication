@@ -8,6 +8,9 @@ import SettingsPage from "./pages/SettingsPage";
 import NotFound from "./pages/NotFound";
 import ProtectedRoute from "./contexts/ProtectedRoute";
 import Login from "./pages/Login";
+import Profile from "./pages/Profile";
+import ForgotPassword from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword";
 
 const App = () => (
   <BrowserRouter>
@@ -26,7 +29,11 @@ const App = () => (
         <Route path="/products" element={<Products />} />
         <Route path="/users" element={<UsersPage />} />
         <Route path="/settings" element={<SettingsPage />} />
+        <Route path="/profile" element={<Profile />} />
+        
       </Route>
+      <Route path="/forgot-password" element={<ForgotPassword />} />
+      <Route path="/reset-password" element={<ResetPassword />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   </BrowserRouter>

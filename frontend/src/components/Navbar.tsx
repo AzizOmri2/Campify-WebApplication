@@ -77,7 +77,7 @@ const Navbar = ({ onLoginOpen }: { onLoginOpen: () => void }) => {
                   <button className="dropdown-item" onClick={() => navigate('/orders')}>
                     <Package /> Orders
                   </button>
-                  <button className="dropdown-item">
+                  <button className="dropdown-item" onClick={() => navigate('/settings')}>
                     <Settings /> Settings
                   </button>
                   <button className="dropdown-item" onClick={logout} title="Logout">

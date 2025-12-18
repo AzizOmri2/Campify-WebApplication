@@ -1,14 +1,46 @@
-import { TrendingUp, ShoppingCart, Package, Users } from "lucide-react";
+import { TrendingUp, ShoppingCart, Package, Users, PackageX } from "lucide-react";
 import "@/styles/pages.css";
-
-const stats = [
-  { title: "Total Revenue", value: "$45,231.89", change: "+20.1%", icon: TrendingUp },
-  { title: "Orders", value: "2,350", change: "+15.2%", icon: ShoppingCart },
-  { title: "Products", value: "12,234", change: "+5.4%", icon: Package },
-  { title: "Active Users", value: "573", change: "+12.3%", icon: Users },
-];
+import { useStats } from "@/contexts/StatContext";
 
 export default function Dashboard() {
+
+  const { stats, loading } = useStats();
+
+  if (loading) {
+    return (
+      <div className="loading-wrapper">
+        <div className="spinner"></div>
+        <p className="loading-text">Loading dashboard...</p>
+      </div>
+    );
+  }
+
+  const dashboardStats = [
+    {
+      title: "Total Revenue",
+      value: `$${stats.totalRevenue.toLocaleString()}`,
+      change: stats.revenueChange,
+      icon: TrendingUp,
+    },
+    {
+      title: "Orders",
+      value: stats.orders,
+      change: stats.ordersChange,
+      icon: ShoppingCart,
+    },
+    {
+      title: "Products",
+      value: stats.products,
+      icon: Package,
+    },
+    {
+      title: "Active Users",
+      value: stats.activeUsers,
+      change: stats.usersChange,
+      icon: Users,
+    },
+  ];
+
   return (
     <div className="page-enter space-y-6">
       <div className="page-header">
@@ -19,13 +51,18 @@ export default function Dashboard() {
       </div>
 
       <div className="grid-stats">
-        {stats.map((stat, index) => (
+        {dashboardStats.map((stat, index) => (
           <div key={stat.title} className={`card hoverable stagger-${index + 1}`}>
             <div className="stat-card">
               <div>
                 <p className="stat-label">{stat.title}</p>
                 <p className="stat-value">{stat.value}</p>
-                <p className="stat-change">{stat.change} from last month</p>
+                {stat.change !== undefined && (
+                  <p className={`stat-change ${stat.change >= 0 ? "positive" : "negative"}`}>
+                    {stat.change >= 0 ? "+" : ""}
+                    {stat.change}% from last month
+                  </p>
+                )}
               </div>
               <div className="stat-icon">
                 <stat.icon />
@@ -39,33 +76,67 @@ export default function Dashboard() {
         <div className="card hoverable stagger-5">
           <h2 className="section-title">Recent Orders</h2>
           <div className="space-y-3">
-            {[1, 2, 3, 4].map((i) => (
-              <div key={i} className="list-item">
-                <div>
-                  <p className="list-item-title">Order #{1000 + i}</p>
-                  <p className="list-item-subtitle">2 items • $129.00</p>
-                </div>
-                <span className="badge badge-primary">Processing</span>
+            {stats.recentOrders.length === 0 ? (
+              <div className="empty-state">
+                <PackageX className="empty-icon" size={48} />
+                <p className="empty-title">No recent orders.</p>
+                <p className="empty-subtitle">No orders found.</p>
               </div>
-            ))}
+            ) : (
+              stats.recentOrders.map((order) => (
+                <div key={order.id} className="list-item">
+                  <div>
+                    <p className="list-item-title">Order #{order.id.slice(-6).toUpperCase()}</p>
+                    <p className="list-item-subtitle">
+                      {order.items_count} items • ${order.amount.toFixed(2)}
+                    </p>
+                    <p className="list-item-subtitle">By {order.user}</p>
+                  </div>
+                  <span className="badge badge-primary">{order.status.charAt(0).toUpperCase() + order.status.slice(1)}</span>
+                </div>
+              ))
+            )}
           </div>
         </div>
 
         <div className="card hoverable stagger-5">
           <h2 className="section-title">Top Products</h2>
           <div className="space-y-3">
-            {["Organic Seeds Pack", "Garden Tools Set", "Plant Fertilizer", "Ceramic Pot Large"].map((product, i) => (
-              <div key={product} className="list-item">
-                <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
-                  <div style={{ height: "2.5rem", width: "2.5rem", borderRadius: "0.5rem", backgroundColor: "var(--muted)" }} />
-                  <div>
-                    <p className="list-item-title">{product}</p>
-                    <p className="list-item-subtitle">{120 - i * 15} sales</p>
-                  </div>
-                </div>
-                <span style={{ fontWeight: 500 }}>${(29.99 + i * 10).toFixed(2)}</span>
+            {stats.topProducts.length === 0 ? (
+              <div className="empty-state">
+                <PackageX className="empty-icon" size={48} />
+                <p className="empty-title">No products found.</p>
+                <p className="empty-subtitle">No top products found in the catalog.</p>
               </div>
-            ))}
+            ) : (
+              stats.topProducts.map((product) => (
+                <div key={product.name} className="list-item">
+                  <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
+                    {product.image_url ? (
+                      <img
+                        src={product.image_url}
+                        alt={product.name}
+                        style={{ height: "2.5rem", width: "2.5rem", borderRadius: "0.5rem" }}
+                      />
+                    ) : (
+                      <div
+                        style={{
+                          height: "2.5rem",
+                          width: "2.5rem",
+                          borderRadius: "0.5rem",
+                          backgroundColor: "var(--muted)",
+                        }}
+                      />
+                    )}
+                    <div>
+                      <p className="list-item-title">{product.name}</p>
+                      <p className="list-item-subtitle">{product.sales} sales</p>
+                    </div>
+                  </div>
+                  <span style={{ fontWeight: 500 }}>${product.price.toFixed(2)}</span>
+                </div>
+              ))
+            )}
           </div>
         </div>
       </div>

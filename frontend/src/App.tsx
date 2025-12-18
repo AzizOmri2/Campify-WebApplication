@@ -22,6 +22,7 @@ import Orders from "./pages/Orders";
 import ProtectedRoute from "./lib/ProtectedRoute";
 import { ProductProvider } from "./contexts/ProductContext";
 import { OrderProvider } from "./contexts/OrderContext";
+import Settings from "./pages/Settings";
 
 
 const queryClient = new QueryClient();
@@ -59,7 +60,14 @@ const AppRoutes = () => {
               <Orders />
             </ProtectedRoute>
           } />
-          
+
+          <Route path="/settings" element={
+            <ProtectedRoute>
+              <Settings />
+            </ProtectedRoute>
+          } />
+
+          <Route path="/reset-password" element={<LoginModal onClose={() => window.location.href = "/"} />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

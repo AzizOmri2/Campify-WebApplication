@@ -32,7 +32,7 @@ export function AdminSidebar({ collapsed, onToggle, mobileOpen }: AdminSidebarPr
   return (
     <aside className={sidebarClass}>
       <div className="sidebar-header">
-        <Link to="/dashboard" className="sidebar-logo">
+        <Link to="/dashboard" className="sidebar-logo" title="Campify - Admin Panel">
           <div className="sidebar-logo-icon">
             <img src="/campify_icon.png" alt="Campify Logo"/>
           </div>
@@ -44,11 +44,7 @@ export function AdminSidebar({ collapsed, onToggle, mobileOpen }: AdminSidebarPr
         {menuItems.map((item) => {
           const isActive = location.pathname === item.url;
           return (
-            <Link
-              key={item.title}
-              to={item.url}
-              className={`sidebar-link ${isActive ? "active" : ""}`}
-            >
+            <Link key={item.title} to={item.url} className={`sidebar-link ${isActive ? "active" : ""}`} title={item.title}>
               <item.icon />
               <span>{item.title}</span>
             </Link>

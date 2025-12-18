@@ -4,10 +4,12 @@ import { Minus, Plus, Trash2, ShoppingBag } from 'lucide-react';
 import './Cart.css';
 import { useEffect } from 'react';
 import { useUser } from '@/contexts/UserContext';
+import { useApi } from '@/contexts/ApiContext';
 
 const Cart = () => {
   const { cart, removeFromCart, updateQuantity, cartTotal, clearCart, fetchCart, loading } = useCart();
   const { user } = useUser();
+  const { apiUrl } = useApi();
 
   // Fetch user's cart from backend when component mounts
   useEffect(() => {
@@ -67,7 +69,12 @@ const Cart = () => {
                 <div key={item._id} className="cart-item">
                   <div className="cart-item-content">
                     <div className="cart-item-image">
-                      <img src={item.image_url} alt={item.name} />
+                      <img src={ item.image_url.startsWith("http://") || item.image_url.startsWith("https://")
+                          ? item.image_url // full URL, use as-is
+                          : `${apiUrl}/uploads/${item.image_url}` // local file
+                        }
+                        alt={item.name}
+                      />
                     </div>
 
                     <div className="cart-item-details">

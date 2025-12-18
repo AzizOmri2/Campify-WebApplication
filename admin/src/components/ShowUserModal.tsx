@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
-import { FaBan, FaTrash } from "react-icons/fa";
 import "./ShowUserModal.css";
 
 interface ShowUserModalProps {
   isOpen: boolean;
   onClose: () => void;
   user?: {
+    id: string,
     full_name: string;
     email: string;
     role: string;
@@ -16,6 +16,8 @@ interface ShowUserModalProps {
 }
 
 const ShowUserModal: React.FC<ShowUserModalProps> = ({ isOpen, onClose, user }) => {
+
+
   // Prevent background scrolling & handle Escape key
   useEffect(() => {
     if (isOpen) document.body.style.overflow = "hidden";
@@ -56,7 +58,16 @@ const ShowUserModal: React.FC<ShowUserModalProps> = ({ isOpen, onClose, user }) 
                 {user.status}
               </span>
             </p>
-            <p><strong>Joined On:</strong> {new Date(user.joined).toLocaleDateString()}</p>
+            <p>
+              <strong>Joined On:</strong> {new Date(user.joined).toLocaleString("en-US", {
+                year: "numeric",
+                month: "short",
+                day: "numeric",
+                hour: "2-digit",
+                minute: "2-digit",
+                hour12: false, // 24-hour format
+              })}
+            </p>
           </div>
 
           {/* Right: Profile Picture */}
@@ -65,17 +76,6 @@ const ShowUserModal: React.FC<ShowUserModalProps> = ({ isOpen, onClose, user }) 
               user.avatar || 
               "https://img.freepik.com/premium-vector/vector-flat-illustration-grayscale-avatar-user-profile-person-icon-gender-neutral-silhouette-profile-picture-suitable-social-media-profiles-icons-screensavers-as-templatex9xa_719432-2210.jpg?semt=ais_hybrid&w=740&q=80"} alt="Profile" />
           </div>
-        </div>
-
-        {/* Footer with actions */}
-        <div className="sum-modal-footer">
-          <button className="footer-btn footer-ban" title="Ban User">
-            <FaBan className="footer-icon" />
-          </button>
-
-          <button className="footer-btn footer-delete" title="Delete User">
-            <FaTrash className="footer-icon" />
-          </button>
         </div>
       </div>
     </div>

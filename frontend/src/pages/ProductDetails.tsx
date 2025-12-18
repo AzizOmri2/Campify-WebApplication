@@ -21,6 +21,7 @@ interface ProductType {
 const ProductDetails = () => {
   const { id } = useParams();
   const { addToCart } = useCart();
+  const { apiUrl } = useApi();
 
   const { products, loading } = useProducts();
   
@@ -63,7 +64,12 @@ const ProductDetails = () => {
             <div className="product-details-grid">
               {/* Product Image */}
               <div className="product-image-container">
-                <img src={product.image_url} alt={product.name} />
+                <img src={ product.image_url.startsWith("http://") || product.image_url.startsWith("https://")
+                    ? product.image_url // full URL, use as-is
+                    : `${apiUrl}/uploads/${product.image_url}` // local file
+                  }
+                  alt={product.name}
+                />
               </div>
 
               {/* Product Info */}

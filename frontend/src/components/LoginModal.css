@@ -113,6 +113,20 @@
   box-shadow: 0 0 10px rgba(0,0,0,0.3);
 }
 
+/* FORGOT PASSWORD */
+.forgot-password {
+  font-size: 0.85rem;
+  color: var(--primary);
+  margin-top: -10px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  text-align: right;
+}
+
+.forgot-password:hover {
+  text-decoration: underline;
+}
+
 /* SUBMIT BUTTON */
 .modal-submit {
   margin-top: 0.5rem;

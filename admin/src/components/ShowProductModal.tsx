@@ -57,7 +57,7 @@ export default function ShowProductModal({ product, onClose }: ShowProductModalP
   return createPortal(
     <div className={`spm-overlay ${showModal ? "show" : ""} ${isClosing ? "closing" : ""}`} onClick={handleClose}>
       <div className={`spm-modal ${showModal ? "show" : ""} ${isClosing ? "closing" : ""}`} onClick={(e) => e.stopPropagation()}>
-        <button className="spm-close-btn" onClick={handleClose}>
+        <button className="spm-close-btn" onClick={handleClose} title="Close">
           &times;
         </button>
 

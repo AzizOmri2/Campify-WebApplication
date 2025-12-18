@@ -2,6 +2,7 @@ import { ShoppingCart } from 'lucide-react';
 import { useCart } from '@/contexts/CartContext';
 import { Link } from 'react-router-dom';
 import './ProductCard.css';
+import { useApi } from '@/contexts/ApiContext';
 
 interface Product {
   _id: string;
@@ -18,12 +19,19 @@ interface ProductCardProps {
 
 const ProductCard = ({ product }: ProductCardProps) => {
   const { addToCart } = useCart();
+  const { apiUrl } = useApi();
 
   return (
     <div className="product-card">
       <Link to={`/product/${product._id}`}>
         <div className="product-card-image-wrapper">
-          <img src={product.image_url} alt={product.name} className="product-card-image"/>
+          <img src={ product.image_url.startsWith("http://") || product.image_url.startsWith("https://")
+            ? product.image_url // full URL, use as-is
+            : `${apiUrl}/uploads/${product.image_url}` // local file
+            }
+            alt={product.name}
+            className="product-card-image"
+          />
         </div>
       </Link>
       

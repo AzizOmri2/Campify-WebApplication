@@ -240,10 +240,10 @@ export default function ProductModal({ productId, onClose, onProduct }: ProductM
 
             {/* Actions */}
             <div className="apm-actions">
-              <button type="submit" className="btn btn-submit">
+              <button type="submit" className="btn btn-submit" title={productId ? "Save Changes" : "Save Product"}>
                 {productId ? "Save Changes" : "Save Product"}
               </button>
-              <button type="button" className="btn btn-cancel" onClick={handleClear}>Cancel</button>
+              <button type="button" className="btn btn-cancel" onClick={handleClear} title="Cancel">Cancel</button>
             </div>
           </form>
         </div>

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Mail, Lock, LogIn } from "lucide-react";
 import "../styles/Login.css";
 import { useUser } from "@/contexts/UserContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 const Login = () => {
   const [form, setForm] = useState({ email: "", password: "" });
@@ -39,7 +39,10 @@ const Login = () => {
   return (
     <div className="login-page">
       <div className="login-card">
-
+        {/* Logo */}
+        <Link to="/" className="logo-link">
+          <img src="./campify_logo.png" alt="Logo" className="login-logo" />
+        </Link>
         <h1 className="login-title">Welcome Back</h1>
         <p className="login-subtitle">Sign in to access your admin panel</p>
 
@@ -71,6 +74,10 @@ const Login = () => {
 
           {/* Error */}
           {error && <p className="login-error">{error}</p>}
+
+          <div className="forgot-password">
+            <Link to="/forgot-password">Forgot password?</Link>
+          </div>
 
           {/* Submit */}
           <button type="submit" className="login-btn" disabled={loading}>

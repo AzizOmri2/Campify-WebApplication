@@ -20,6 +20,10 @@ export function AdminNavbar({ sidebarCollapsed, onMobileMenuToggle }: AdminNavba
     navigate("/settings");
   };
 
+  const goToProfile = () => {
+    navigate("/profile");
+  };
+
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
@@ -57,7 +61,7 @@ export function AdminNavbar({ sidebarCollapsed, onMobileMenuToggle }: AdminNavba
 
           {dropdownOpen && (
             <div className="navbar-dropdown">
-              <button className="navbar-dropdown-item" title="Profile">
+              <button className="navbar-dropdown-item" onClick={goToProfile} title="Profile">
                 <User />
                 Profile
               </button>

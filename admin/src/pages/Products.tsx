@@ -126,7 +126,7 @@ export default function Products() {
           <p>Manage your product inventory.</p>
         </div>
         <div className="page-header-actions">
-          <button className="btn btn-primary" onClick={openAddModal}>
+          <button className="btn btn-primary" onClick={openAddModal} title="Add Product">
             <Plus />
             Add Product
           </button>
@@ -222,11 +222,11 @@ export default function Products() {
             <p>Are you sure you want to delete this product?</p>
 
             <div className="modal-actions">
-              <button className="btn btn-delete-confirm" onClick={confirmDelete}>
+              <button className="btn btn-delete-confirm" onClick={confirmDelete} title="Delete">
                 <Trash2 className="delete-icon" size={18} />
                 Delete
               </button>
-              <button className="btn btn-cancel" onClick={cancelDelete}>
+              <button className="btn btn-cancel" onClick={cancelDelete} title="Cancel">
                 Cancel
               </button>
             </div>

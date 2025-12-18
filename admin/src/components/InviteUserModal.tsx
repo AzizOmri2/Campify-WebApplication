@@ -2,6 +2,7 @@ import { useState } from "react";
 import { createPortal } from "react-dom";
 import { UserPlus } from "lucide-react";
 import "./InviteUserModal.css";
+import { useUser } from "@/contexts/UserContext";
 
 interface InviteUserModalProps {
   isOpen: boolean;
@@ -11,12 +12,23 @@ interface InviteUserModalProps {
 export default function InviteUserModal({ isOpen, onClose }: InviteUserModalProps) {
   const [email, setEmail] = useState("");
   const [role, setRole] = useState("User");
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const { inviteUser } = useUser();
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setEmail("");
-    setRole("User");
-    onClose();
+    if (!email) return;
+
+    setLoading(true);
+    try {
+      await inviteUser(email, role); // notifications handled in UserContext
+      setEmail("");
+      setRole("User");
+      onClose();
+    } finally {
+      setLoading(false);
+    }
   };
 
   if (!isOpen) return null;
@@ -36,23 +48,28 @@ export default function InviteUserModal({ isOpen, onClose }: InviteUserModalProp
               placeholder="user@example.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              disabled={loading}
             />
           </div>
 
           <div className="input-group">
             <label>Role</label>
-            <select value={role} onChange={(e) => setRole(e.target.value)}>
+            <select
+              value={role}
+              onChange={(e) => setRole(e.target.value)}
+              disabled={loading}
+            >
               <option value="User">User</option>
               <option value="Admin">Admin</option>
             </select>
           </div>
 
           <div className="modal-actions">
-            <button type="submit" className="btn btn-invite">
+            <button type="submit" className="btn btn-invite" disabled={loading}>
               <UserPlus size={18} />
-              Invite
+              {loading ? "Inviting..." : "Invite"}
             </button>
-            <button type="button" className="btn btn-cancel" onClick={onClose}>
+            <button type="button" className="btn btn-cancel" onClick={onClose} disabled={loading}>
               Cancel
             </button>
           </div>

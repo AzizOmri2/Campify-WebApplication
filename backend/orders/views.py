@@ -91,3 +91,124 @@ class UserOrdersView(APIView):
             return Response(orders_list, status=status.HTTP_200_OK)
         except Exception as e:
             return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+class AllOrdersView(APIView):
+    def get(self, request):
+        try:
+            orders = Order.objects().order_by('-date')
+
+            result = []
+            for order in orders:
+
+                # safely handle missing user reference
+                try:
+                    user_data = {
+                        "id": str(order.user.id),
+                        "name": order.user.full_name,
+                        "email": order.user.email,
+                    }
+                except Exception:
+                    user_data = {
+                        "id": None,
+                        "name": "Deleted User",
+                        "email": None,
+                    }
+
+                result.append({
+                    "_id": str(order.id),
+                    "user": user_data,
+                    "items": [
+                        {
+                            "product_id": item.product_id,
+                            "name": item.name,
+                            "price": float(item.price),
+                            "quantity": float(item.quantity),
+                        }
+                        for item in order.items
+                    ],
+                    "amount": float(order.amount),
+                    "address": {
+                        "first_name": order.address.first_name,
+                        "last_name": order.address.last_name,
+                        "email": order.address.email,
+                        "address": order.address.address,
+                        "city": order.address.city,
+                        "zip": order.address.zip,
+                    },
+                    "status": order.status,
+                    "payment": order.payment,
+                    "date": order.date.isoformat(),
+                })
+
+            return Response(result, status=status.HTTP_200_OK)
+
+        except Exception as e:
+            return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+class DeleteOrderView(APIView):
+    def delete(self, request, order_id):
+        try:
+            order = Order.objects.get(id=order_id)
+            order.delete()
+            return Response({"message": "Order deleted successfully"}, status=status.HTTP_200_OK)
+        except Order.DoesNotExist:
+            return Response({"error": "Order not found"}, status=status.HTTP_404_NOT_FOUND)
+        except Exception as e:
+            return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+class GetOrderByIdView(APIView):
+    def get(self, request, order_id):
+        try:
+            # Fetch order
+            try:
+                order = Order.objects.get(id=order_id)
+            except Order.DoesNotExist:
+                return Response({"error": "Order not found"}, status=status.HTTP_404_NOT_FOUND)
+
+            # Handle missing user reference
+            try:
+                user_data = {
+                    "id": str(order.user.id),
+                    "name": order.user.full_name,
+                    "email": order.user.email,
+                }
+            except Exception:
+                user_data = {
+                    "id": None,
+                    "name": "Deleted User",
+                    "email": None,
+                }
+
+            order_data = {
+                "_id": str(order.id),
+                "user": user_data,
+                "items": [
+                    {
+                        "product_id": item.product_id,
+                        "name": item.name,
+                        "price": float(item.price),
+                        "quantity": float(item.quantity),
+                    }
+                    for item in order.items
+                ],
+                "amount": float(order.amount),
+                "address": {
+                    "first_name": order.address.first_name,
+                    "last_name": order.address.last_name,
+                    "email": order.address.email,
+                    "address": order.address.address,
+                    "city": order.address.city,
+                    "zip": order.address.zip,
+                },
+                "status": order.status,
+                "payment": order.payment,
+                "date": order.date.isoformat(),
+            }
+
+            return Response(order_data, status=status.HTTP_200_OK)
+
+        except Exception as e:
+            return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
