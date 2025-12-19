@@ -12,7 +12,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
 DEBUG = os.getenv("DJANGO_DEBUG") == "True"
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["campify-backend.onrender.com", "localhost"]
 
 # MONGO ENGINE CONFIG
 MONGO_URI = os.getenv("MONGO_URI")
@@ -34,6 +34,7 @@ INSTALLED_APPS = [
 
     "users",
     "products",
+    "orders",
 ]
 
 MIDDLEWARE = [
@@ -67,19 +68,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "backend.wsgi.application"
 
-# STATIC FILES
-STATIC_URL = "/static/"
-STATIC_ROOT = BASE_DIR / "staticfiles"
-STATICFILES_DIRS = [BASE_DIR / "static"]
-
-# MEDIA FILES (IMPORTANT)
-MEDIA_URL = "/uploads/"              # required to match frontend
-MEDIA_ROOT = BASE_DIR / "uploads"    # folder where product images go
-
-DEFAULT_FILE_STORAGE = "django.core.files.storage.FileSystemStorage"
-
-# CORS
-CORS_ALLOW_ALL_ORIGINS = True
 
 # EMAIL SETTINGS
 EMAIL_BACKEND = os.getenv("EMAIL_BACKEND")
@@ -96,3 +84,22 @@ REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [],
     "DEFAULT_PERMISSION_CLASSES": [],
 }
+
+# CORS
+CORS_ALLOWED_ORIGINS = [
+    os.getenv("ADMIN_FRONTEND_URL"),
+    os.getenv("CLIENT_FRONTEND_URL"),
+]
+
+# STATIC FILES
+STATIC_URL = "/static/"
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+STATICFILES_DIRS = [BASE_DIR / "static"]
+
+# Add Whitenoise for static file serving
+MIDDLEWARE.insert(1, "whitenoise.middleware.WhiteNoiseMiddleware")
+
+# MEDIA FILES
+MEDIA_URL = "/uploads/"
+MEDIA_ROOT = BASE_DIR / "uploads"
+DEFAULT_FILE_STORAGE = "django.core.files.storage.FileSystemStorage"
