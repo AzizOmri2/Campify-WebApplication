@@ -1,0 +1,75 @@
+.admin-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.9rem 1.6rem;
+  background: linear-gradient(
+    135deg,
+    rgba(245, 245, 245, 0.85),
+    rgba(255, 255, 255, 0.6)
+  );
+  backdrop-filter: blur(10px);
+  border-top: 1px solid rgba(200, 200, 200, 0.4);
+  color: var(--muted-foreground);
+  font-size: 0.88rem;
+  font-weight: 400;
+  margin-top: auto;
+  z-index: 20;
+  box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.04);
+}
+
+/* Footer text alignment */
+.admin-footer p {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+/* Accent bold text */
+.admin-footer .footer-brand {
+  font-weight: 600;
+  color: var(--foreground);
+}
+
+/* Link styles */
+.admin-footer a {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 500;
+  transition: 0.25s ease;
+}
+
+.admin-footer a:hover {
+  color: var(--accent-hover);
+  text-shadow: 0 0 4px rgba(var(--accent-rgb), 0.35);
+}
+
+/* Icon styling */
+.admin-footer svg {
+  font-size: 1rem;
+  opacity: 0.9;
+}
+
+/* Hover effect */
+.admin-footer:hover {
+  background: linear-gradient(
+    135deg,
+    rgba(250, 250, 250, 0.95),
+    rgba(255, 255, 255, 0.75)
+  );
+  border-top-color: rgba(180, 180, 180, 0.45);
+}
+
+/* Mobile adjustments */
+@media (max-width: 640px) {
+  .admin-footer {
+    flex-direction: column;
+    padding: 0.8rem 1rem;
+    text-align: center;
+  }
+
+  .admin-footer p {
+    justify-content: center;
+  }
+}

@@ -4,6 +4,7 @@ import { AdminSidebar } from "./AdminSidebar";
 import { AdminNavbar } from "./AdminNavbar";
 import "@/styles/AdminLayout.css";
 import ShowUserModal from "../ShowUserModal";
+import { AdminFooter } from "./AdminFooter";
 
 export function AdminLayout() {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
@@ -59,7 +60,9 @@ export function AdminLayout() {
         <main className="admin-content">
           <Outlet context={{ openShowUserModal }} />
         </main>
+
       </div>
+      <AdminFooter />
 
       {/* Global ShowUserModal */}
       <ShowUserModal isOpen={showUserModal} onClose={closeShowUserModal} user={modalUser} />

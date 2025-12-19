@@ -51,25 +51,13 @@ const Login = () => {
           {/* Email */}
           <div className="input-group">
             <Mail className="input-icon" />
-            <input
-              type="email"
-              placeholder="Email"
-              required
-              value={form.email}
-              onChange={(e) => setForm({ ...form, email: e.target.value })}
-            />
+            <input type="email" placeholder="Email" required value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })}/>
           </div>
 
           {/* Password */}
           <div className="input-group">
             <Lock className="input-icon" />
-            <input
-              type="password"
-              placeholder="Password"
-              required
-              value={form.password}
-              onChange={(e) => setForm({ ...form, password: e.target.value })}
-            />
+            <input type="password" placeholder="Password" required value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })}/>
           </div>
 
           {/* Error */}
@@ -92,7 +80,9 @@ const Login = () => {
           </button>
 
         </form>
-
+        <p className="admin-login-footer">
+          Developed By <a href="https://mohamedazizomri.netlify.app" target="_blank" rel="noopener noreferrer">Mohamed Aziz Omri</a> <br></br>© {new Date().getFullYear()} Campify | Admin Panel — All rights reserved
+        </p>
       </div>
     </div>
   );
